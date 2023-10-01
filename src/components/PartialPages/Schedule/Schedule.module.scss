@@ -1,0 +1,46 @@
+@use "sass:math";
+@use "@/styles/ThemeColor" as Color;
+$height: 24px;
+$timeTableRate: 0.94;
+.container {
+  width: 100%;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.scrollBox {
+  height: calc(100vh - 64px);
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.flexBox {
+  display: flex;
+  padding: 2% 0;
+}
+.time {
+  text-align: center;
+  letter-spacing: 1px;
+  height: $height;
+}
+.smallText {
+  line-height: 28px;
+  font-size: 6px;
+  text-align: right;
+}
+.timeTable {
+  margin-top: 1.6%;
+}
+// dev
+.line {
+  height: $height;
+  width: 768px * $timeTableRate;
+  border-top: 1px solid Color.$ThemeColor-3;
+}
+
+.borderBottom {
+  border-bottom: 1px solid Color.$ThemeColor-3;
+}
+.selected {
+  background-color: Color.$ThemeColor-3;
+}

@@ -1,0 +1,43 @@
+@use "../../styles/ThemeColor" as Color;
+.container {
+  position: sticky;
+  top: 0;
+  background-color: Color.$ThemeColor-1;
+  padding: 16px;
+  height: 64px;
+  width: 100vw;
+  overflow: hidden;
+
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.grid {
+  height: 32px;
+  display: grid;
+  line-height: 32px;
+  grid-template-columns: 180px 1fr 180px;
+  & > div {
+    display: flex;
+    gap: 24px;
+    & > div {
+      cursor: pointer;
+    }
+  }
+}
+.back {
+  display: flex;
+
+  & .text {
+    line-height: 32px;
+    font-size: 16px;
+  }
+}
+.icon {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  border-radius: 24px;
+  overflow: hidden;
+}

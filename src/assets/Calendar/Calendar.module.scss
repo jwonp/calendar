@@ -1,0 +1,29 @@
+.wrapper {
+  text-align: center;
+
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.yearMonth {
+  font-weight: bold;
+  font-size: 24px;
+}
+.weekColumn {
+  font-weight: bold;
+  font-size: 18px;
+}
+.weekGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  & .sat {
+    color: #4f56ff;
+  }
+  & .sun {
+    color: #ff7e7e;
+  }
+}
+.dateConatiner {
+}
+

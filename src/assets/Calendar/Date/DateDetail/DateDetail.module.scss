@@ -1,0 +1,18 @@
+.container {
+  width: 5.625vw;
+  height: 105px;
+}
+.etc {
+  margin-top: 3%;
+  text-align: right;
+}
+.scheduleBox {
+  padding: 5%;
+}
+.schedules {
+  display: grid;
+  gap: 5%;
+  & div {
+    color: #ffffff;
+  }
+}

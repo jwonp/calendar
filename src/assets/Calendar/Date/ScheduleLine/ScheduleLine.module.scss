@@ -1,0 +1,10 @@
+@use "../../../../styles/ThemeColor.scss" as Color;
+.container {
+  text-align: left;
+  color: #ffffff;
+  background-color: Color.$ThemeColor-1;
+  // border-bottom: 1px solid Color.$ThemeColor-2;
+}
+.schedule {
+  text-indent: 3%;
+}

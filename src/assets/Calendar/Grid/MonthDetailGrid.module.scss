@@ -1,0 +1,14 @@
+.conatainer {
+  padding: 0 9.375%;
+  display: grid;
+  grid-template-columns: repeat(2, 40vw);
+  gap: 1.25%;
+  height: calc(100vh - 64px);
+  overflow: hidden;
+}
+
+.isFriend {
+  padding: 0;
+  grid-template-columns: 360px 1fr 1fr;
+  gap: 0;
+}
