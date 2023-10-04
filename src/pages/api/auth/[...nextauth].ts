@@ -1,5 +1,6 @@
 import NextAuth, { AuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import CognitoProvider from "next-auth/providers/cognito";
 import { randomBytes, randomUUID } from "crypto";
 
 export const authOptions: AuthOptions = {
@@ -16,6 +17,11 @@ export const authOptions: AuthOptions = {
           // provider: "google",
         };
       },
+    }),
+    CognitoProvider({
+      clientId: process.env.COGNITO_CLIENT_ID as string,
+      clientSecret: process.env.COGNITO_CLIENT_SECRET as string,
+      issuer: process.env.COGNITO_ISSUER as string,
     }),
   ],
 
@@ -44,20 +50,28 @@ export const authOptions: AuthOptions = {
 
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
+      console.log(user);
+      console.log(profile);
+      console.log(email);
+      console.log(credentials);
+
       return true;
     },
     async redirect({ url, baseUrl }) {
       return process.env.FRONTEND_END_POINT as string;
     },
-    // async session({ session, token, user }) {
-    //   session.user.id = token.sub;
-    //   if (token.picture.includes("lh3.googleusercontent.com"))
-    //     session.user.provider = "google";
-    //   if (token.picture.includes("static-cdn.jtvnw.net"))
-    //     session.user.provider = "twitch";
+    async jwt({token , account, profile}){
+      if(account){
+        token.accessToken = account.access_token;
+        token.id = profile?.sub
+      }
+      return token
+    },
+    async session({ session, token, user }) {
+      
 
-    //   return session;
-    // },
+      return session;
+    },
     // async jwt({ token, user, account, profile, isNewUser }) { return token }
   },
 
