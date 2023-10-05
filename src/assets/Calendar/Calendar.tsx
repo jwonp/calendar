@@ -1,13 +1,16 @@
 import styles from "./Calendar.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   DisplayDate,
   getOneMonth,
   getBlanks,
   getFirstDay,
+  getDisplayDate,
 } from "@/utils/dateUtils";
-import { useRouter } from "next/navigation";
+
 import DateDetail from "./Date/DateDetail/DateDetail";
+import { useRouter } from "next/router";
+import dayjs from "dayjs";
 
 interface CalendarProps {
   year: string;
@@ -25,15 +28,17 @@ const getDayColor = (day: number) => {
 };
 const Calendar = ({ year, month, withDetail }: CalendarProps) => {
   const router = useRouter();
-  const [oneMonth, setOneMonth] = useState<DisplayDate[]>(
-    getOneMonth(getFirstDay(year, month).format("YYYY-MM-DD"))
-  );
+  const [oneMonth, setOneMonth] = useState<DisplayDate[]>([
+    getDisplayDate(dayjs()),
+  ]);
+  useEffect(() => {
+    if (router.isReady) {
+      setOneMonth(getOneMonth(getFirstDay(year, month).format("YYYY-MM-DD")));
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router]);
   return (
-    <div
-      className={styles.wrapper}
-      onClick={() => {
-        router.push(`/calendar/${oneMonth[0].year}/${oneMonth[0].month + 1}`);
-      }}>
+    <div className={styles.wrapper}>
       <div className={styles.yearMonth}>{`${oneMonth[0].month + 1} 월`}</div>
       <div className={styles.dateConatiner}>
         <div className={`${styles.weekGrid} ${styles.weekColumn}`}>
