@@ -1,7 +1,9 @@
 import Calendar from "@/assets/Calendar/Calendar";
 import { useRouter } from "next/router";
 import styles from "./Month.module.scss";
+
 const MonthPage = () => {
+  
   const router = useRouter();
   return (
     <div
@@ -11,7 +13,7 @@ const MonthPage = () => {
 
         let year = parseInt(router.query.year as string);
         let month = parseInt(router.query.month as string);
-        console.log(year, month);
+        
         if ((e.deltaY / 10) % 2 > 1 && e.deltaY % 10 > 7) {
           if (month === 12) {
             month = 1;
