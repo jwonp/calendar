@@ -1,6 +1,6 @@
 @use "../../styles/ThemeColor" as Color;
 .container {
-  position: sticky;
+  position: fixed;
   top: 0;
   background-color: Color.$ThemeColor-1;
   padding: 16px;
@@ -23,6 +23,15 @@
     gap: 24px;
     & > div {
       cursor: pointer;
+    }
+  }
+
+  & .center {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    & > div {
+      width: 100%;
+      text-align: center;
     }
   }
 }
