@@ -2,6 +2,8 @@ import NextAuth, { AuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CognitoProvider from "next-auth/providers/cognito";
 import { randomBytes, randomUUID } from "crypto";
+import axios from "axios";
+import { UserDetail } from "@/types/dto";
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -22,6 +24,17 @@ export const authOptions: AuthOptions = {
       clientId: process.env.COGNITO_CLIENT_ID as string,
       clientSecret: process.env.COGNITO_CLIENT_SECRET as string,
       issuer: process.env.COGNITO_ISSUER as string,
+      idToken: true,
+      checks: "nonce",
+      profile(profile) {
+        return {
+          id: profile.sub,
+          name: profile.name,
+          email: profile.email,
+          image: profile.picture,
+          docId: profile.docId,
+        };
+      },
     }),
   ],
 
@@ -50,33 +63,61 @@ export const authOptions: AuthOptions = {
 
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
-      console.log(user);
-      console.log(profile);
-      console.log(email);
-      console.log(credentials);
-
       return true;
     },
     async redirect({ url, baseUrl }) {
       return process.env.FRONTEND_END_POINT as string;
     },
-    async jwt({token , account, profile}){
-      if(account){
+    async jwt({ token, account, profile }) {
+      if (account) {
         token.accessToken = account.access_token;
-        token.id = profile?.sub
+        token.id = profile?.sub;
       }
-      return token
+      return token;
     },
     async session({ session, token, user }) {
-      
+      console.log("token");
+      console.log(token);
 
+      const userDetail = await axios
+        .get<UserDetail>(
+          `${process.env.BACKEND_END_POINT}/users/user/${token.sub}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token.accessToken}`,
+            },
+          }
+        )
+        .then((res) => {
+          return res.data;
+        });
+
+      if (session && session.user) {
+        session.user.id = userDetail.id;
+        session.user.docId = userDetail.docId;
+      }
+      console.log("session");
+      console.log(session);
       return session;
     },
     // async jwt({ token, user, account, profile, isNewUser }) { return token }
   },
 
   events: {
-    //   async signIn(message) { /* on successful sign in */ },
+    async signIn({ user, account, profile, isNewUser }) {
+      console.log("account");
+      console.log(account);
+      console.log(
+        `Authorization : ${account?.token_type} ${account?.access_token}`
+      );
+      await axios.post(`${process.env.BACKEND_END_POINT}/users/user`, user, {
+        headers: {
+          Authorization: `${account?.token_type} ${account?.access_token}`,
+        },
+      });
+
+      /* on successful sign in */
+    },
     //   async signOut(message) { /* on signout */ },
     //   async createUser(message) { /* user created */ },
     //   async updateUser(message) { /* user updated - e.g. their email was verified */ },
