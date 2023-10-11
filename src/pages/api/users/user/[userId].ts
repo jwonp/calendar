@@ -17,10 +17,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
     };
     res.status(result.status).json(error);
   }
-  res.status(200).json({
-    path: `/users/user/${userId}`,
-    method: req.method,
-    data: result,
-  });
+  res.status(200).json(result);
 };
 export default handler;
