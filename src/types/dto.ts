@@ -1,4 +1,4 @@
-import { FriendRequest as FriendRequestDAO } from "./dao";
+import { User, FriendRequest as FriendRequestDAO } from "./dao";
 export interface UserDetail {
   id: string;
   name: string;
@@ -7,6 +7,7 @@ export interface UserDetail {
   friends: string[];
   docId: string;
 }
+export interface Friend extends Omit<User, "docId" | "friends"> {}
 export interface FriendRequest {
   fromDocId: string;
   toDocId: string;
