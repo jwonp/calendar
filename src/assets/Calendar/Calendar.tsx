@@ -1,5 +1,5 @@
 import styles from "./Calendar.module.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   DisplayDate,
   getOneMonth,
@@ -11,11 +11,11 @@ import {
 import DateDetail from "./Date/DateDetail/DateDetail";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
-
+import { Schedule } from "@/types/dao";
 interface CalendarProps {
   year: string;
   month: string;
-  withDetail?: boolean;
+  schedules?: Schedule[];
 }
 const getDayColor = (day: number) => {
   if (day === 0) {
@@ -26,7 +26,17 @@ const getDayColor = (day: number) => {
   }
   return undefined;
 };
-const Calendar = ({ year, month, withDetail }: CalendarProps) => {
+const DumySchedule: Schedule = {
+  userDocId: "",
+  date: {
+    year: 0,
+    month: 0,
+    date: 0,
+    day: 0,
+  },
+  schedule: [],
+};
+const Calendar = ({ year, month, schedules }: CalendarProps) => {
   const router = useRouter();
   const [oneMonth, setOneMonth] = useState<DisplayDate[]>([
     getDisplayDate(dayjs()),
@@ -35,8 +45,9 @@ const Calendar = ({ year, month, withDetail }: CalendarProps) => {
     if (router.isReady) {
       setOneMonth(getOneMonth(getFirstDay(year, month).format("YYYY-MM-DD")));
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router]);
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.yearMonth}>{`${oneMonth[0].month + 1} 월`}</div>
@@ -56,7 +67,18 @@ const Calendar = ({ year, month, withDetail }: CalendarProps) => {
             <div
               key={index}
               className={getDayColor(item.day)}>
-              {withDetail ? <DateDetail date={item.date} /> : item.date}
+              {schedules ? (
+                <DateDetail
+                  date={item.date}
+                  schedule={
+                    schedules.filter(
+                      (schedule) => schedule.date.date === item.date
+                    )[0]
+                  }
+                />
+              ) : (
+                item.date
+              )}
             </div>
           ))}
         </div>
