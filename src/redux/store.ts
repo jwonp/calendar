@@ -1,10 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import friendDrawerSwitchReducer from "./featrues/friendDrawerSwitchSlice";
+import nowDateReducer from "./featrues/nowDateSlice";
 
 export const store = configureStore({
   reducer: {
     friendDrawerSwitch: friendDrawerSwitchReducer,
-  
+    nowDate:nowDateReducer
   },
 });
 
