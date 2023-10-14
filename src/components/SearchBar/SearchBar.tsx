@@ -48,12 +48,11 @@ const SearchBar = () => {
           </div>
         </div>
       </div>
-      <div className={styles.search_list_container}>
-        <div className={styles.title}>검색 결과</div>
-        <div>
-          {SearchSWR.data &&
-            SearchSWR.data.length > 0 &&
-            SearchSWR.data
+      {SearchSWR.data && SearchSWR.data.length > 0 && (
+        <div className={styles.search_list_container}>
+          <div className={styles.title}>검색 결과</div>
+          <div>
+            {SearchSWR.data
               .filter((user) => user.id !== session?.user?.id)
               .map((user, index) => (
                 <UserBlock
@@ -64,8 +63,9 @@ const SearchBar = () => {
                   image={user.picture}
                 />
               ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
