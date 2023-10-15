@@ -12,10 +12,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
   }
   const result = await AxiosWithAuthorization(req, url, method, schedule);
 
-  res.status(200).json({
-    path: `/schedules/user`,
-    method: req.method,
-    data: result,
-  });
+  res.status(200).json(result);
 };
 export default handler;
