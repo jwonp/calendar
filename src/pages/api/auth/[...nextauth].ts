@@ -4,6 +4,7 @@ import CognitoProvider from "next-auth/providers/cognito";
 import { randomBytes, randomUUID } from "crypto";
 import axios from "axios";
 import { UserDetail } from "@/types/dto";
+import { User } from "@/types/dao";
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -105,16 +106,29 @@ export const authOptions: AuthOptions = {
 
   events: {
     async signIn({ user, account, profile, isNewUser }) {
-      console.log("account");
-      console.log(account);
+      console.log("user");
+      console.log(user);
       console.log(
         `Authorization : ${account?.token_type} ${account?.access_token}`
       );
-      await axios.post(`${process.env.BACKEND_END_POINT}/users/user`, user, {
-        headers: {
-          Authorization: `${account?.token_type} ${account?.access_token}`,
-        },
-      });
+      if (!user.name || !user.email || !user.image) {
+        return;
+      }
+      const userDetail: Omit<User, "docId" | "friends"> = {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        picture: user.image,
+      };
+      await axios.post(
+        `${process.env.BACKEND_END_POINT}/users/user`,
+        userDetail,
+        {
+          headers: {
+            Authorization: `${account?.token_type} ${account?.access_token}`,
+          },
+        }
+      );
 
       /* on successful sign in */
     },
