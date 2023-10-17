@@ -1,0 +1,29 @@
+@use "../../../../styles/ThemeColor.scss" as Color;
+.container {
+  width: 80px;
+  height: 40px;
+  & .text,
+  & .selectedText {
+    text-align: center;
+
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  cursor: pointer;
+}
+.box {
+  border-bottom: 2px solid Color.$ThemeColor-3;
+}
+
+.text {
+  color: white;
+}
+.selectedBox {
+  border-bottom: 2px solid Color.$ThemeColor-1;
+}
+
+.selectedText {
+  color: Color.$ThemeColor-3;
+}
