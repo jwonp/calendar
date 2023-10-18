@@ -5,16 +5,18 @@ import { DefaultFetcher, UrlBuilder } from "@/utils/SwrConfig";
 import { User } from "@/types/dao";
 import UserBlock from "@/assets/Calendar/Drawer/UserBlock/UserBlock";
 import { useSession } from "next-auth/react";
-
-const SearchBar = () => {
+import { FriendRequest } from "@/types/dto";
+import axios from "axios";
+interface SearchProps {
+  submitButtonText?: string;
+  onSubmit?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+}
+const SearchBar = ({ submitButtonText, onSubmit }: SearchProps) => {
   const { data: session } = useSession();
   const [query, setQuery] = useState<string>("");
   const [url, setUrl] = useState<string | null>("");
   const timeId = useRef<NodeJS.Timeout>(setTimeout(() => {}));
-  const SearchSWR = useSWR<Omit<User, "docId" | "friends">[]>(
-    url,
-    DefaultFetcher
-  );
+  const SearchSWR = useSWR<Omit<User, "friends">[]>(url, DefaultFetcher);
 
   useEffect(() => {
     clearTimeout(timeId.current);
@@ -34,7 +36,10 @@ const SearchBar = () => {
           <div className={styles.text}>친구 추가</div>
         </div>
         <div className={styles.input_wrapper}>
-          <div className={styles.input_box}>
+          <div
+            className={`${styles.input_box} ${
+              submitButtonText && onSubmit ? styles.grid : undefined
+            }`}>
             <input
               id="friend-search-input"
               className={styles.input}
@@ -44,7 +49,13 @@ const SearchBar = () => {
                 setQuery(() => e.target.value);
               }}
             />
-            <button className={styles.button}>전송</button>
+            {submitButtonText && onSubmit && (
+              <button
+                className={styles.button}
+                onClick={onSubmit}>
+                {submitButtonText}
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -61,6 +72,22 @@ const SearchBar = () => {
                   name={user.name}
                   email={user.email}
                   image={user.picture}
+                  onClick={(
+                    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+                  ) => {
+                    if (!session?.user?.docId || !user.id) {
+                      return;
+                    }
+                    const request: FriendRequest = {
+                      fromDocId: session?.user?.docId,
+                      toDocId: user.docId,
+                    };
+                    axios
+                      .post("/api/users/friend/request", request)
+                      .then(() => {
+                        SearchSWR.mutate();
+                      });
+                  }}
                 />
               ))}
           </div>
