@@ -1,6 +1,13 @@
-.container{
-
+.container {
 }
-.grid{
 
+.grid {
+  margin-bottom: 2em;
+}
+.buttons {
+  display: flex;
+}
+.noContent {
+  text-align: center;
+  padding: 1em 2em;
 }
