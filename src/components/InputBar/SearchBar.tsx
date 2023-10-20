@@ -1,5 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
-import styles from "./SearchBar.module.scss";
+import { useEffect, useRef, useState } from "react";
 import useSWR from "swr";
 import { DefaultFetcher, UrlBuilder } from "@/utils/SwrConfig";
 import { User } from "@/types/dao";
@@ -7,11 +6,11 @@ import UserBlock from "@/assets/Calendar/Drawer/UserBlock/UserBlock";
 import { useSession } from "next-auth/react";
 import { FriendRequest } from "@/types/dto";
 import axios from "axios";
+import styles from "./InputBar.module.scss";
 interface SearchProps {
-  submitButtonText?: string;
-  onSubmit?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  title: string;
 }
-const SearchBar = ({ submitButtonText, onSubmit }: SearchProps) => {
+const SearchBar = ({ title }: SearchProps) => {
   const { data: session } = useSession();
   const [query, setQuery] = useState<string>("");
   const [url, setUrl] = useState<string | null>("");
@@ -33,13 +32,10 @@ const SearchBar = ({ submitButtonText, onSubmit }: SearchProps) => {
     <div className={styles.container}>
       <div className={styles.input_container}>
         <div className={styles.title}>
-          <div className={styles.text}>친구 추가</div>
+          <div className={styles.text}>{title}</div>
         </div>
         <div className={styles.input_wrapper}>
-          <div
-            className={`${styles.input_box} ${
-              submitButtonText && onSubmit ? styles.grid : undefined
-            }`}>
+          <div className={styles.input_box}>
             <input
               id="friend-search-input"
               className={styles.input}
@@ -49,13 +45,6 @@ const SearchBar = ({ submitButtonText, onSubmit }: SearchProps) => {
                 setQuery(() => e.target.value);
               }}
             />
-            {submitButtonText && onSubmit && (
-              <button
-                className={styles.button}
-                onClick={onSubmit}>
-                {submitButtonText}
-              </button>
-            )}
           </div>
         </div>
       </div>
