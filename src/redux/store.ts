@@ -1,11 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import friendDrawerSwitchReducer from "./featrues/friendDrawerSwitchSlice";
+import drawerSwitchReducer from "./featrues/drawerSwitchSlice";
 import nowDateReducer from "./featrues/nowDateSlice";
-
+import listSelectorReducer from "./featrues/ListSelectorSlice";
+import groupSelectReducer from "./featrues/groupSelectSlice";
 export const store = configureStore({
   reducer: {
-    friendDrawerSwitch: friendDrawerSwitchReducer,
-    nowDate:nowDateReducer
+    drawerSwitch: drawerSwitchReducer,
+    nowDate: nowDateReducer,
+    listSelector: listSelectorReducer,
+    groupSelect: groupSelectReducer,
   },
 });
 
