@@ -1,8 +1,8 @@
-import styles from "./FriendDrawer.module.scss";
-import { getFriendDrawerSwitch } from "@/redux/featrues/friendDrawerSwitchSlice";
+import styles from "./Drawer.module.scss";
+import { getDrawerSwitch } from "@/redux/featrues/drawerSwitchSlice";
 import { useAppSelector } from "@/redux/hooks";
 const FriendDrawer = ({ children }: { children: React.ReactNode }) => {
-  const isFriendOn = useAppSelector(getFriendDrawerSwitch);
+  const isFriendOn = useAppSelector(getDrawerSwitch);
   if (isFriendOn) {
     return <div className={styles.container}>{children}</div>;
   }
