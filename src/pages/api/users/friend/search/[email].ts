@@ -5,6 +5,9 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
   const { email } = req.query;
+  if (!email) {
+    return res.status(400).json([]);
+  }
   const result: Omit<User, "friends" | "docId">[] =
     await AxiosWithAuthorization(
       req,
