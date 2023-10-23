@@ -1,6 +1,11 @@
+@use "../../../../styles/ThemeColor.scss" as Color;
 .container {
   width: 5.625vw;
   height: 105px;
+}
+.date{
+  background-color: Color.$ThemeColor-2;
+  border-radius: 16px;
 }
 .etc {
   color: #ffffff;
