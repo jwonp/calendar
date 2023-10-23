@@ -4,6 +4,12 @@
   grid-template-columns: 35px 1fr 80px;
   gap: 10px;
 }
+.noButtons {
+  grid-template-columns: 35px 1fr !important;
+}
+.pointer {
+  cursor: pointer;
+}
 .buttons {
   display: flex;
   gap: 10px;
