@@ -12,10 +12,11 @@ import DateDetail from "./Date/DateDetail/DateDetail";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
 import { Schedule } from "@/types/dao";
+import { ScheduleWithUserDetail } from "@/types/types";
 interface CalendarProps {
   year: string;
   month: string;
-  schedules?: Schedule[];
+  schedules?: ScheduleWithUserDetail[];
 }
 const getDayColor = (day: number) => {
   if (day === 0) {
@@ -26,16 +27,7 @@ const getDayColor = (day: number) => {
   }
   return undefined;
 };
-const DumySchedule: Schedule = {
-  userDocId: "",
-  date: {
-    year: 0,
-    month: 0,
-    date: 0,
-    day: 0,
-  },
-  schedule: [],
-};
+
 const Calendar = ({ year, month, schedules }: CalendarProps) => {
   const router = useRouter();
   const [oneMonth, setOneMonth] = useState<DisplayDate[]>([
@@ -70,10 +62,10 @@ const Calendar = ({ year, month, schedules }: CalendarProps) => {
               {schedules ? (
                 <DateDetail
                   date={item.date}
-                  schedule={
+                  schedules={
                     schedules.filter(
                       (schedule) => schedule.date.date === item.date
-                    )[0]
+                    )
                   }
                 />
               ) : (
