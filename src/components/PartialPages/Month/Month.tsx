@@ -4,41 +4,51 @@ import styles from "./Month.module.scss";
 import useSWR from "swr";
 import { UrlBuilder, DefaultFetcher } from "@/utils/SwrConfig";
 import { useSession } from "next-auth/react";
-import { Schedule, User } from "@/types/dao";
-import { useEffect } from "react";
-import { useAppDispatch } from "@/redux/hooks";
+import { Group, Schedule, User } from "@/types/dao";
+import { useEffect, useMemo } from "react";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setNowDate, setYearMonth } from "@/redux/featrues/nowDateSlice";
 import dayjs from "dayjs";
+import { getSelectedGroup } from "@/redux/featrues/groupSelectSlice";
+import { ScheduleWithUserDetail } from "@/types/types";
 
 const MonthPage = () => {
   const router = useRouter();
+  const selectedGroup = useAppSelector(getSelectedGroup);
   const dispatch = useAppDispatch();
   const { data: session } = useSession();
-  const UserSWR = useSWR<User>(
+
+  const GroupScheduleSWR = useSWR<Schedule[]>(
     UrlBuilder(
-      `/api/users/user/${session?.user?.id}`,
-      session?.user?.id !== undefined
-    ),
-    DefaultFetcher
-  );
-  const FriendSWR = useSWR(
-    UrlBuilder(
-      `/api/users/friend/${UserSWR?.data?.id}`,
-      UserSWR?.data?.id !== undefined
-    ),
-    DefaultFetcher
-  );
-  const UserScheduleSWR = useSWR<Schedule[]>(
-    UrlBuilder(
-      `/api/schedules/user/${session?.user?.docId}/${
+      `/api/schedules/group/${selectedGroup.docId}/${
         router.query.year as string
       }/${router.query.month as string}`,
-      session?.user?.docId !== undefined &&
-        router.query?.year !== undefined &&
-        router.query?.month !== undefined
+      selectedGroup.docId.length > 0
     ),
     DefaultFetcher
   );
+  const GroupSchedules = useMemo<ScheduleWithUserDetail[]>(() => {
+    if (!selectedGroup || !GroupScheduleSWR.data) {
+      return [] as ScheduleWithUserDetail[];
+    }
+    const memberMap = new Map<string, Omit<User, "friends">>();
+    selectedGroup.members.forEach((member) => {
+      memberMap.set(member.docId, member);
+    });
+    const schedules = GroupScheduleSWR.data.map((schedule) => {
+      const member = memberMap.get(schedule.userDocId) as Omit<User, "friends">;
+
+      const newSchedule: ScheduleWithUserDetail = {
+        user: member,
+        date: schedule.date,
+        schedule: schedule.schedule,
+      };
+      return newSchedule;
+    });
+
+    return schedules;
+  }, [selectedGroup, GroupScheduleSWR]);
+
   useEffect(() => {
     dispatch(
       setNowDate({
@@ -49,7 +59,6 @@ const MonthPage = () => {
     );
   }, []);
   useEffect(() => {
-   
     const yearMonth = {
       year: parseInt(router.query.year as string),
       month: parseInt(router.query.month as string),
@@ -94,7 +103,7 @@ const MonthPage = () => {
           year={router.query.year as string}
           month={router.query.month as string}
           schedules={
-            UserScheduleSWR.data?.length === 0 ? [] : UserScheduleSWR.data
+            GroupSchedules?.length === 0 ? [] : GroupSchedules
           }
         />
       </div>
