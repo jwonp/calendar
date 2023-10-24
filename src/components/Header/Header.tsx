@@ -5,18 +5,18 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import BackIcon from "@public/back-white.png";
 import { signIn, signOut, useSession } from "next-auth/react";
-import axios from "axios";
+
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import {
-  getFriendDrawerSwitch,
+  getDrawerSwitch,
   setSwitch,
-} from "@/redux/featrues/friendDrawerSwitchSlice";
+} from "@/redux/featrues/drawerSwitchSlice";
 import Link from "next/link";
+
 const Header = () => {
   const now = dayjs();
   const router = useRouter();
-
-  const isFriendOn = useAppSelector(getFriendDrawerSwitch);
+  const isFriendOn = useAppSelector(getDrawerSwitch);
   const dispatch = useAppDispatch();
   const { data: session } = useSession();
   const [year, setYear] = useState<number>(0);
@@ -63,14 +63,7 @@ const Header = () => {
               친구 목록
             </div>
           )}
-          {/* <div
-            onClick={() => {
-              axios.get("/api/user/friend").then((res) => {
-                console.log(res.data);
-              });
-            }}>
-            {session?.user?.name}
-          </div> */}
+
         </div>
         <div className={styles.right}>
           {session?.user ? (
