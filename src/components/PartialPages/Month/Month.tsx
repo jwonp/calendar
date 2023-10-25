@@ -3,34 +3,60 @@ import { useRouter } from "next/router";
 import styles from "./Month.module.scss";
 import useSWR from "swr";
 import { UrlBuilder, DefaultFetcher } from "@/utils/SwrConfig";
-import { useSession } from "next-auth/react";
-import { Group, Schedule, User } from "@/types/dao";
+
+import { Schedule, User } from "@/types/dao";
 import { useEffect, useMemo } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setNowDate, setYearMonth } from "@/redux/featrues/nowDateSlice";
 import dayjs from "dayjs";
 import { getSelectedGroup } from "@/redux/featrues/groupSelectSlice";
 import { ScheduleWithUserDetail } from "@/types/types";
+import { useSession } from "next-auth/react";
 
 const MonthPage = () => {
   const router = useRouter();
+  const { data: session } = useSession();
   const selectedGroup = useAppSelector(getSelectedGroup);
   const dispatch = useAppDispatch();
-  const { data: session } = useSession();
 
+  const UserScheduleSWR = useSWR<Schedule[]>(
+    UrlBuilder(
+      `/api/schedules/user/${session?.user?.docId}/${
+        router.query.year as string
+      }/${router.query.month as string}`,
+      session !== null && session?.user !== undefined
+    ),
+    DefaultFetcher
+  );
   const GroupScheduleSWR = useSWR<Schedule[]>(
     UrlBuilder(
       `/api/schedules/group/${selectedGroup.docId}/${
         router.query.year as string
       }/${router.query.month as string}`,
-      selectedGroup.docId.length > 0
+      selectedGroup.docId !== "" && selectedGroup.docId !== undefined
     ),
     DefaultFetcher
   );
+  const UserSchedules = useMemo<ScheduleWithUserDetail[]>(() => {
+    if (!UserScheduleSWR.data || !session || !session?.user) {
+      return [] as ScheduleWithUserDetail[];
+    }
+    const schedules = UserScheduleSWR.data.map((schedule) => {
+      const user: User = session?.user as User;
+      const newSchedule: ScheduleWithUserDetail = {
+        user: user,
+        date: schedule.date,
+        schedule: schedule.schedule,
+      };
+      return newSchedule;
+    });
+    return schedules;
+  }, [UserScheduleSWR]);
   const GroupSchedules = useMemo<ScheduleWithUserDetail[]>(() => {
     if (!selectedGroup || !GroupScheduleSWR.data) {
       return [] as ScheduleWithUserDetail[];
     }
+
     const memberMap = new Map<string, Omit<User, "friends">>();
     selectedGroup.members.forEach((member) => {
       memberMap.set(member.docId, member);
@@ -45,7 +71,18 @@ const MonthPage = () => {
       };
       return newSchedule;
     });
-
+schedules.sort((a,b)=> {
+  const docIdA =  a.user.docId;
+  const docIdB =  b.user.docId;
+  const docId = session?.user?.docId;
+  if(docIdA === docId && docIdB !== docId) {
+    return -1
+  }
+  if(docIdA === docId && docIdB === docId){
+    return 0;
+  }
+  return 1
+})
     return schedules;
   }, [selectedGroup, GroupScheduleSWR]);
 
@@ -103,7 +140,7 @@ const MonthPage = () => {
           year={router.query.year as string}
           month={router.query.month as string}
           schedules={
-            GroupSchedules?.length === 0 ? [] : GroupSchedules
+            GroupSchedules?.length === 0 ? UserSchedules : GroupSchedules
           }
         />
       </div>
