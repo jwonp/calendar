@@ -1,10 +1,14 @@
 import { Group, User } from "@/types/dao";
 import styles from "./GroupBlock.module.scss";
-import { useAppDispatch } from "@/redux/hooks";
-import { setSelectedGroup} from "@/redux/featrues/groupSelectSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import {
+  getSelectedGroup,
+  setSelectedGroup,
+} from "@/redux/featrues/groupSelectSlice";
 interface GroupBlockProps extends Group {}
 const GroupBlock = (group: GroupBlockProps) => {
   const dispatch = useAppDispatch();
+  const selectedGroup = useAppSelector(getSelectedGroup);
   const memmberList = (members: Omit<User, "friends">[]) => {
     let displayText = "";
     const memberNames = members.map((member) => member.name);
@@ -24,7 +28,9 @@ const GroupBlock = (group: GroupBlockProps) => {
   };
   return (
     <div
-      className={styles.container}
+      className={`${styles.container} ${
+        group.docId === selectedGroup.docId ? styles.selected : ""
+      }`}
       onClick={() => {
         dispatch(setSelectedGroup(group));
       }}>
