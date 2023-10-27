@@ -5,11 +5,13 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { getNowDateWithDayjs, setDate } from "@/redux/featrues/nowDateSlice";
 import { ScheduleWithUserDetail } from "@/types/types";
 import { useMemo } from "react";
+
 interface DateDetail {
   date: number;
   schedules: ScheduleWithUserDetail[];
 }
 const DateDetail = ({ date, schedules }: DateDetail) => {
+  
   const dispatch = useAppDispatch();
   const nowDate = useAppSelector(getNowDateWithDayjs);
   const ScheduleLines = useMemo(() => {
@@ -21,6 +23,7 @@ const DateDetail = ({ date, schedules }: DateDetail) => {
       .map((schedule, index) => (
         <ScheduleLine
           key={`${schedule.user.docId}-${index}`}
+          userDocId={schedule.user.docId}
           text={schedule.user.name}
         />
       ));
