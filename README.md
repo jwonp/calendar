@@ -5,10 +5,29 @@
 Rest API 문서 
 
 <details>
-<summary>
-  토글 제목
-</summary>
-   토글 안 내용
+  <details>
+    <summary>
+      GET /users/user/{userId}
+    </summary>
+     <p>해당 유저 ID의 정보를 불러옵니다.</p>
+      <tr>
+        <td>
+          <p>params</p>
+          <pre>
+            {
+	            "userId": "userId1"
+            }
+          </pre>
+        </td>
+        <td>
+          <p>body</p>
+        </td>
+        <td>
+          <p>return</p>
+        </td>
+      </tr>
+  </details> 
+ 
 </details>
 
 
