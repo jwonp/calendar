@@ -2,9 +2,12 @@
 
 배포링크 : https://...
 
-Rest API 문서 
+
 
 <details>
+<summary>
+    Rest API 문서 
+</summary>
   <details>
     <summary>
       GET /users/user/{userId}
@@ -12,22 +15,68 @@ Rest API 문서
      <p>해당 유저 ID의 정보를 불러옵니다.</p>
       <tr>
         <td>
-          <p>params</p>
-          <pre>
-            {
-	            "userId": "userId1"
-            }
-          </pre>
+            <p>params</p>
+            <pre>
+                {
+                    "userId": "userId1"
+                }
+            </pre>
         </td>
         <td>
-          <p>body</p>
+            <p>body</p>
+            <pre>
+                {
+                
+                }
+            </pre>
         </td>
         <td>
-          <p>return</p>
+            <p>return</p>
+            <pre>
+                {
+                    "docId": "LwRwe9oWbCNlSELYB1Ig",
+                    "friends": [],
+                    "picture": "https://www.image.com/123",
+                    "id": "userId1",
+                    "name": "userName1",
+                    "email": "userId1@example.com"
+                }
+            </pre>
         </td>
       </tr>
   </details> 
- 
+  <details>
+    <summary>
+      GET /users/user/{userId}
+    </summary>
+     <p>해당 유저 ID의 정보를 불러옵니다.</p>
+      <tr>
+        <td>
+            <p>params</p>
+            <pre>
+                {
+                    "userId": "userId1"
+                }
+            </pre>
+        </td>
+        <td>
+            <p>body</p>
+            <pre>
+                {
+                    "userId": "userId1"
+                }
+            </pre>
+        </td>
+        <td>
+            <p>return</p>
+            <pre>
+                {
+                    "userId": "userId1"
+                }
+            </pre>
+        </td>
+      </tr>
+  </details>  
 </details>
 
 
