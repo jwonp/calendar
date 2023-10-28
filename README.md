@@ -1,5 +1,16 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+이 프로젝트는 조직, 단체, 모임에서 각자의 일정을 등록하고, 다음 일정의 시간을 맞출 수 있게 도와주는 서비스를 제공하기 위해 만들었습니다.
 
+배포링크 : https://...
+
+Rest API 문서 : 
+
+주요 기능 
+
+개발 주요 로드맵
+
+제작자 : 박주원
+
+Contact : tkdel222@gmail.com
 ## Getting Started
 
 First, run the development server:
