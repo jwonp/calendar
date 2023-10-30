@@ -611,6 +611,51 @@
     </td>
     </tr>
 </details>
+<details>
+<summary>
+    GET /schedules/group/{docId}/{year}/{month}
+</summary>
+    <p>해당 Document ID에 맞는 그룹의 일정 중, 년, 월 조건에 맞는 모든 일정을 불러옵니다. </p>
+    <tr>
+    <td>
+        <p>params</p>
+        <pre>
+            {
+                "docId": "LwRwe9oWbCNlSELYB1Ig",
+                    "year": "2023",
+                    "month": "9",
+            }
+        </pre>
+    </td>
+    <td>
+        <p>body</p>
+        <pre>
+            {
+                NO BODY
+            }
+        </pre>
+    </td>
+    <td>
+        <p>return</p>
+        <pre>
+            [
+                {
+                    "userDocId": "LwRwe9oWbCNlSELYB1Ig",
+                    "date": {
+                        "year": 2023,
+                        "month": 9,
+                        "date": 30,
+                        "day": 6
+                    },
+                    "schedule": [
+                        0,0,0, ... ,0
+                    ]
+                }
+            ]
+        </pre>
+    </td>
+    </tr>
+</details>
 
 
 ### 주요 기능
