@@ -6,9 +6,6 @@
 ## Rest APIs
 
 <details>
-```bash
-hi
-```
 <summary>
     GET /users/user/{userId}
 </summary>
