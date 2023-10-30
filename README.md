@@ -6,7 +6,7 @@
 <summary>
     Rest APIs
 </summary>
-    <div style={{paddingLeft:3em}}>
+    <div style="padding-left: 1em;">
         <details>
         <summary>
             GET /users/user/{userId}
