@@ -29,5 +29,5 @@ export interface User {
 export interface Group {
   docId: string;
   title: string;
-  members: string[];
+  members: Omit<User, "friends">[];
 }
