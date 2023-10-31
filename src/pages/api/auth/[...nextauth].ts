@@ -8,19 +8,19 @@ import { User } from "@/types/dao";
 
 export const authOptions: AuthOptions = {
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_ID as string,
-      clientSecret: process.env.GOOGLE_SECRET as string,
-      profile(profile) {
-        return {
-          id: profile.sub,
-          name: profile.name,
-          email: profile.email,
-          image: profile.picture,
-          // provider: "google",
-        };
-      },
-    }),
+    // GoogleProvider({
+    //   clientId: process.env.GOOGLE_ID as string,
+    //   clientSecret: process.env.GOOGLE_SECRET as string,
+    //   profile(profile) {
+    //     return {
+    //       id: profile.sub,
+    //       name: profile.name,
+    //       email: profile.email,
+    //       image: profile.picture,
+    //       // provider: "google",
+    //     };
+    //   },
+    // }),
     CognitoProvider({
       clientId: process.env.COGNITO_CLIENT_ID as string,
       clientSecret: process.env.COGNITO_CLIENT_SECRET as string,
