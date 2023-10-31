@@ -1,27 +1,9 @@
-@use "../../../../styles/ThemeColor.scss" as Color;
-.container {
-  width: 5.625vw;
-  height: 105px;
-}
-.date{
-  background-color: Color.$ThemeColor-2;
-  border-radius: 16px;
-}
-.etc {
-  color: #ffffff;
-  margin-top: 3%;
-  text-align: right;
-}
-.scheduleBox {
-  padding: 5%;
-}
-.schedules {
-  display: grid;
-  gap: 5%;
-  & div {
-    color: #ffffff;
-  }
-}
+$header-height:64px;
+
+$windowWidth-pc: 1024px;
+$windowWidth-tablet: 768px;
+$windowWidth-mobile: 480px;
+
 // @use "@/styles/vars.scss" as vars;
 // /* PC , 테블릿 가로 (해상도 769px ~ 1024px)*/
 // @media all and (min-width: calc(vars.$windowWidth-tablet + 1px)) and (max-width: vars.$windowWidth-pc) {
