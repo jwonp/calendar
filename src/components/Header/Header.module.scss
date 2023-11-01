@@ -1,11 +1,17 @@
 @use "../../styles/ThemeColor" as Color;
 @use "@/styles/vars.scss" as vars;
+$height-mobile: 24px;
+$padding-mobile: 20px;
+$padding-horizontal-mobile: 10px;
+$padding-vertical-mobile: 20px;
+$icon-mobile: 24px;
+$font-size-mobile: 13px;
 .container {
   position: fixed;
   top: 0;
   background-color: Color.$ThemeColor-1;
   padding: 16px;
-  height:vars.$header-height;
+  height: vars.$header-height;
   width: 100vw;
   overflow: hidden;
 
@@ -19,7 +25,9 @@
   display: grid;
   line-height: 32px;
   grid-template-columns: 180px 1fr 180px;
-  & > div {
+  & .left,
+  & .center,
+  & .right {
     display: flex;
     gap: 24px;
     & > div {
@@ -30,6 +38,7 @@
   & .center {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
+
     & > div {
       width: 100%;
       text-align: center;
@@ -38,11 +47,10 @@
 }
 .back {
   display: flex;
-
-  & .text {
-    line-height: 32px;
-    font-size: 16px;
-  }
+}
+.text {
+  line-height: 32px;
+  font-size: 16px;
 }
 .icon {
   position: relative;
@@ -51,19 +59,58 @@
   border-radius: 24px;
   overflow: hidden;
 }
-// @use "@/styles/vars.scss" as vars;
-// /* PC , 테블릿 가로 (해상도 769px ~ 1024px)*/
-// @media all and (min-width: calc(vars.$windowWidth-tablet + 1px)) and (max-width: vars.$windowWidth-pc) {
-//     /*스타일입력*/
+.indicator {
+  display: none;
+}
+/* PC , 테블릿 가로 (해상도 769px ~ 1024px)*/
+@media all and (min-width: calc(vars.$windowWidth-tablet + 1px)) and (max-width: vars.$windowWidth-pc) {
+  /*스타일입력*/
+}
 
-//   }
+/* 모바일 가로, 테블릿 세로 (해상도 481px ~ 768px)*/
+@media all and (min-width: calc(vars.$windowWidth-mobile + 1px)) and (max-width: calc(vars.$windowWidth-tablet - 1px)) {
+  /*스타일입력*/
+}
 
-//   /* 모바일 가로, 테블릿 세로 (해상도 481px ~ 768px)*/
-//   @media all and (min-width: calc(vars.$windowWidth-mobile + 1px)) and (max-width: calc(vars.$windowWidth-tablet - 1px)) {
-//     /*스타일입력*/
-//   }
+/* 모바일 가로, 테블릿 세로 (해상도 ~ 478px)*/
+@media all and (max-width: vars.$windowWidth-mobile) {
+  .container {
+    background-color: Color.$ThemeColor-1;
+    padding: $padding-vertical-mobile $padding-horizontal-mobile;
+    height: vars.$header-height;
+  }
+  .grid {
+    height: $height-mobile;
+    display: grid;
+    line-height: $height-mobile;
+    grid-template-columns: 70px 1fr 70px;
+    & .left,
+    & .center,
+    & .right {
+      gap: 3px;
+      & > div {
+        font-size: 11px;
+      }
+    }
 
-//   /* 모바일 가로, 테블릿 세로 (해상도 ~ 478px)*/
-//   @media all and (max-width: vars.$windowWidth-mobile) {
-//     /*스타일입력*/
-//   }
+    & .center {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  .back {
+    display: flex;
+  }
+  .text {
+    line-height: $height-mobile;
+    font-size: $font-size-mobile;
+  }
+  .icon {
+    position: relative;
+    width: $icon-mobile;
+    height: $icon-mobile;
+  }
+  .indicator {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}

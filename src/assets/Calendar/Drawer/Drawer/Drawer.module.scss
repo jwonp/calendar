@@ -20,5 +20,13 @@
 
 /* 모바일 가로, 테블릿 세로 (해상도 ~ 478px)*/
 @media all and (max-width: vars.$windowWidth-mobile) {
-  /*스타일입력*/
+  .container {
+    width: 240px;
+    padding: 16px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    background-color: black;
+    z-index: 1000;
+  }
 }

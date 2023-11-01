@@ -1,19 +1,27 @@
+@use "@/styles/vars.scss" as vars;
 .container {
   margin-top: 64px;
 }
-// @use "@/styles/vars.scss" as vars;
-// /* PC , 테블릿 가로 (해상도 769px ~ 1024px)*/
-// @media all and (min-width: calc(vars.$windowWidth-tablet + 1px)) and (max-width: vars.$windowWidth-pc) {
-//     /*스타일입력*/
+.page {
+  height: 100%;
+  width: 100%;
+}
+.hidden {
+  display: block;
+}
+/* PC , 테블릿 가로 (해상도 769px ~ 1024px)*/
+@media all and (min-width: calc(vars.$windowWidth-tablet + 1px)) and (max-width: vars.$windowWidth-pc) {
+  /*스타일입력*/
+}
 
-//   }
+/* 모바일 가로, 테블릿 세로 (해상도 481px ~ 768px)*/
+@media all and (min-width: calc(vars.$windowWidth-mobile + 1px)) and (max-width: calc(vars.$windowWidth-tablet - 1px)) {
+  /*스타일입력*/
+}
 
-//   /* 모바일 가로, 테블릿 세로 (해상도 481px ~ 768px)*/
-//   @media all and (min-width: calc(vars.$windowWidth-mobile + 1px)) and (max-width: calc(vars.$windowWidth-tablet - 1px)) {
-//     /*스타일입력*/
-//   }
-
-//   /* 모바일 가로, 테블릿 세로 (해상도 ~ 478px)*/
-//   @media all and (max-width: vars.$windowWidth-mobile) {
-//     /*스타일입력*/
-//   }
+/* 모바일 가로, 테블릿 세로 (해상도 ~ 478px)*/
+@media all and (max-width: vars.$windowWidth-mobile) {
+  .hidden {
+    display: none;
+  }
+}
