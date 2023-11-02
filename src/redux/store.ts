@@ -3,12 +3,14 @@ import drawerSwitchReducer from "./featrues/drawerSwitchSlice";
 import nowDateReducer from "./featrues/nowDateSlice";
 import listSelectorReducer from "./featrues/ListSelectorSlice";
 import groupSelectReducer from "./featrues/groupSelectSlice";
+import pageSwitchReducer from "./featrues/pageSwitchSlice";
 export const store = configureStore({
   reducer: {
     drawerSwitch: drawerSwitchReducer,
     nowDate: nowDateReducer,
     listSelector: listSelectorReducer,
     groupSelect: groupSelectReducer,
+    pageSwitch:pageSwitchReducer
   },
 });
 
