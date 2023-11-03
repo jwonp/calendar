@@ -16,7 +16,13 @@ const SearchBar = ({ title }: SearchProps) => {
   const [url, setUrl] = useState<string | null>("");
   const timeId = useRef<NodeJS.Timeout>(setTimeout(() => {}));
   const SearchSWR = useSWR<Omit<User, "friends">[]>(url, DefaultFetcher);
-
+  const FriendSWR = useSWR<Omit<User, "friends">[]>(
+    UrlBuilder(
+      `/api/users/friend/${session?.user?.id}`,
+      session?.user?.id !== undefined
+    ),
+    DefaultFetcher
+  );
   useEffect(() => {
     clearTimeout(timeId.current);
     timeId.current = setTimeout(
@@ -54,6 +60,11 @@ const SearchBar = ({ title }: SearchProps) => {
           <div>
             {SearchSWR.data
               .filter((user) => user.id !== session?.user?.id)
+              .filter(
+                (user) =>
+                  FriendSWR.data?.find((friend) => friend.id == user.id) ===
+                  undefined
+              )
               .map((user, index) => (
                 <UserBlock
                   key={index}
