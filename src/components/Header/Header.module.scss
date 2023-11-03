@@ -1,17 +1,32 @@
 @use "../../styles/ThemeColor" as Color;
 @use "@/styles/vars.scss" as vars;
+
+$height-web: 64px;
+$line-height-web:32px;
+$padding-web: 16px;
+$padding-horizontal-web: 10px;
+$padding-vertical-web: 20px;
+$icon-web: 32px;
+$font-size-web: 16px;
+
+$height-tablet: 64px;
+$line-height-tablet:32px;
+$padding-tablet: 16px;
+$icon-tablet: 32px;
+$font-size-tablet: 14px;
+
 $height-mobile: 24px;
 $padding-mobile: 20px;
 $padding-horizontal-mobile: 10px;
 $padding-vertical-mobile: 20px;
 $icon-mobile: 24px;
-$font-size-mobile: 13px;
+$font-size-mobile: 12px;
 .container {
   position: fixed;
   top: 0;
   background-color: Color.$ThemeColor-1;
-  padding: 16px;
-  height: vars.$header-height;
+  padding: $padding-web;
+  height:$height-web;
   width: 100vw;
   overflow: hidden;
 
@@ -21,9 +36,9 @@ $font-size-mobile: 13px;
   user-select: none;
 }
 .grid {
-  height: 32px;
+  height:$height-web;
   display: grid;
-  line-height: 32px;
+  line-height:$line-height-web;
   grid-template-columns: 180px 1fr 180px;
   & .left,
   & .center,
@@ -49,13 +64,13 @@ $font-size-mobile: 13px;
   display: flex;
 }
 .text {
-  line-height: 32px;
-  font-size: 16px;
+  line-height:$line-height-web;
+  font-size: $font-size-web;
 }
 .icon {
   position: relative;
-  width: 32px;
-  height: 32px;
+  width: $icon-web;
+  height: $icon-web;
   border-radius: 24px;
   overflow: hidden;
 }
@@ -68,8 +83,40 @@ $font-size-mobile: 13px;
 }
 
 /* 모바일 가로, 테블릿 세로 (해상도 481px ~ 768px)*/
-@media all and (min-width: calc(vars.$windowWidth-mobile + 1px)) and (max-width: calc(vars.$windowWidth-tablet - 1px)) {
-  /*스타일입력*/
+@media all and (min-width: calc(vars.$windowWidth-mobile + 1px)) and (max-width: vars.$windowWidth-tablet) {
+  .container {
+    background-color: Color.$ThemeColor-1;
+    padding:$padding-tablet;
+    height: $height-tablet;
+  }
+  .grid {
+    height: $line-height-tablet;
+    display: grid;
+    line-height:$line-height-tablet;
+    grid-template-columns: 100px 1fr 100px;
+    & .left,
+    & .center,
+    & .right {
+      gap: 3px;
+
+    }
+
+    & .center {
+      grid-template-columns: repeat(8, 1fr);
+    }
+  }
+  .back {
+    display: flex;
+  }
+  .text {
+    line-height: $line-height-tablet;
+    font-size: $font-size-tablet;
+  }
+  .icon {
+    position: relative;
+    width: $icon-tablet;
+    height: $icon-tablet;
+  }
 }
 
 /* 모바일 가로, 테블릿 세로 (해상도 ~ 478px)*/
@@ -77,7 +124,7 @@ $font-size-mobile: 13px;
   .container {
     background-color: Color.$ThemeColor-1;
     padding: $padding-vertical-mobile $padding-horizontal-mobile;
-    height: vars.$header-height;
+    height: vars.$header-height-mobile;
   }
   .grid {
     height: $height-mobile;
@@ -88,9 +135,7 @@ $font-size-mobile: 13px;
     & .center,
     & .right {
       gap: 3px;
-      & > div {
-        font-size: 11px;
-      }
+
     }
 
     & .center {
@@ -102,7 +147,7 @@ $font-size-mobile: 13px;
   }
   .text {
     line-height: $height-mobile;
-    font-size: $font-size-mobile;
+    font-size: $font-size-mobile !important;
   }
   .icon {
     position: relative;

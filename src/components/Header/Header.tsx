@@ -7,11 +7,13 @@ import BackIcon from "@public/back-white.png";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import {
-  getDrawerSwitch,
-  setSwitch,
-} from "@/redux/featrues/drawerSwitchSlice";
+import { getDrawerSwitch, setSwitch } from "@/redux/featrues/drawerSwitchSlice";
 import Link from "next/link";
+import { getDateAtNow } from "@/redux/featrues/nowDateSlice";
+import {
+  setPageToDate,
+  setPageToMonth,
+} from "@/redux/featrues/pageSwitchSlice";
 
 const Header = () => {
   const now = dayjs();
@@ -20,7 +22,7 @@ const Header = () => {
   const dispatch = useAppDispatch();
   const { data: session } = useSession();
   const [year, setYear] = useState<number>(0);
-
+  const dateAtNow = useAppSelector(getDateAtNow);
   useEffect(() => {
     if (Object.keys(router.query).includes("year") === false) {
       return;
@@ -52,22 +54,39 @@ const Header = () => {
         <div className={styles.center}>
           {router.pathname.includes("years") && (
             <div>
-              <a href={`/years#year${now.year()}`}>오늘</a>
+              <a
+                className={styles.text}
+                href={`/years#year${now.year()}`}>
+                오늘
+              </a>
             </div>
           )}
           {Object.keys(router.query).includes("month") && (
             <div
+              className={styles.text}
               onClick={() => {
                 dispatch(setSwitch(!isFriendOn));
               }}>
               친구 목록
             </div>
           )}
-
+          <div className={styles.indicator}>
+            <div
+              className={styles.text}
+              onClick={() => {
+                dispatch(setPageToMonth());
+              }}>{`${router.query.month as string}월`}</div>
+            <div
+              className={styles.text}
+              onClick={() => {
+                dispatch(setPageToDate());
+              }}>{`${dateAtNow}일`}</div>
+          </div>
         </div>
         <div className={styles.right}>
           {session?.user ? (
             <div
+              className={styles.text}
               onClick={() => {
                 signOut();
               }}>
@@ -75,6 +94,7 @@ const Header = () => {
             </div>
           ) : (
             <div
+              className={styles.text}
               onClick={() => {
                 signIn();
               }}>
