@@ -1,23 +1,26 @@
 import UserBlock from "@/assets/Calendar/Drawer/UserBlock/UserBlock";
 import styles from "./Friend.module.scss";
 import { useMemo } from "react";
-
+import Image from "next/image";
 import useSWR from "swr";
 import { DefaultFetcher, UrlBuilder } from "@/utils/SwrConfig";
 import { useSession } from "next-auth/react";
-import SearchBar from "@/components/SearchBar/SearchBar";
+import SearchBar from "@/components/InputBar/SearchBar";
 import { Group, User } from "@/types/dao";
 import { RequestReply } from "@/types/dto";
 import axios from "axios";
 import ListSelectButton from "@/assets/Calendar/Drawer/ListSelectButton/ListSelectButton";
 import { LIST, getListSelector } from "@/redux/featrues/ListSelectorSlice";
-import { useAppSelector } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import GroupBlock from "@/assets/Calendar/Drawer/GroupBlock/GroupBlock";
+import AddIcon from "@public/add.png";
+import { PAGE, setDrawerPage } from "@/redux/featrues/drawerSwitchSlice";
 
 const FriendPage = () => {
   const { data: session } = useSession();
   const listSelector = useAppSelector(getListSelector);
-  const FriendSWR = useSWR<Omit<User, "friends" | "docId">[]>(
+  const dispatch = useAppDispatch()
+  const FriendSWR = useSWR<Omit<User, "friends" >[]>(
     UrlBuilder(
       `/api/users/friend/${session?.user?.id}`,
       session?.user?.id !== undefined
@@ -39,7 +42,7 @@ const FriendPage = () => {
     DefaultFetcher
   );
   const FriendRequestBlocks = useMemo(() => {
-    if (FriendRequestSWR.data === undefined) {
+    if (FriendRequestSWR.data === undefined || FriendRequestSWR.data.length === 0) {
       return (
         <div className={styles.noContent}>친구 신청 목록이 비어있습니다</div>
       );
@@ -85,7 +88,7 @@ const FriendPage = () => {
     }
   }, [FriendRequestSWR]);
   const GroupList = useMemo(() => {
-    if (GroupSWR.data === undefined) {
+    if (GroupSWR.data === undefined || GroupSWR.data.length === 0) {
       return <div className={styles.noContent}>그룹 목록이 비어있습니다</div>;
     }
     try {
@@ -102,7 +105,7 @@ const FriendPage = () => {
     }
   }, [GroupSWR]);
   const FriendList = useMemo(() => {
-    if (FriendSWR.data === undefined) {
+    if (FriendSWR.data === undefined|| FriendSWR.data.length === 0) {
       return <div className={styles.noContent}>친구 목록이 비어있습니다</div>;
     }
     try {
@@ -129,7 +132,7 @@ const FriendPage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.grid}>
-        <SearchBar />
+        <SearchBar title={"친구 추가"} />
       </div>
 
       <div className={styles.grid}>
@@ -139,14 +142,28 @@ const FriendPage = () => {
 
       <div className={styles.grid}>
         <div className={styles.buttons}>
-          <ListSelectButton
-            text={"친구 목록"}
-            selector={LIST.FRIEND}
-          />
-          <ListSelectButton
-            text={"그룹 목록"}
-            selector={LIST.GROUP}
-          />
+          <div>
+            <ListSelectButton
+              text={"친구 목록"}
+              selector={LIST.FRIEND}
+            />
+            <ListSelectButton
+              text={"그룹 목록"}
+              selector={LIST.GROUP}
+            />
+          </div>
+          <div>
+            <div className={styles.icon} onClick={()=>{
+              dispatch(setDrawerPage(PAGE.GROUP))
+            }}>
+              <Image
+                src={AddIcon}
+                alt={""}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+            </div>
+          </div>
         </div>
         <div>{ListBlocks}</div>
       </div>
