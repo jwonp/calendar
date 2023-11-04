@@ -9,7 +9,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
     `/users/friend/${userId}`,
     methods.GET
   );
-
-  res.status(200).json(result ?? []);
+  res.status(200).json(result);
 };
 export default handler;
