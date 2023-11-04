@@ -13,6 +13,7 @@ import { DefaultFetcher, UrlBuilder } from "@/utils/SwrConfig";
 import { getSelectedGroup } from "@/redux/featrues/groupSelectSlice";
 import { repeatGrid } from "@/utils/stringUtils";
 import MemberSchedule from "@/assets/Calendar/Date/Schedule/MemberSchedule/MemberSchedule";
+import { PAGE, getPageSwitch } from "@/redux/featrues/pageSwitchSlice";
 
 const hours = [
   0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
@@ -87,17 +88,19 @@ const SchedulePage = () => {
             schedule.date.month === nowDate.month() + 1 &&
             schedule.date.date === nowDate.date()
         )
-       
+
         .map((schedule) => {
           return { userDocId: schedule.userDocId, schedule: schedule.schedule };
         }),
     });
-    const nowDataSchedule = GroupScheduleSWR.data.filter(
-      (schedule) =>
-        schedule.date.year === nowDate.year() &&
-        schedule.date.month === nowDate.month() + 1 &&
-        schedule.date.date === nowDate.date()
-    ) .filter((schedule)=> schedule.userDocId !== session?.user?.docId);
+    const nowDataSchedule = GroupScheduleSWR.data
+      .filter(
+        (schedule) =>
+          schedule.date.year === nowDate.year() &&
+          schedule.date.month === nowDate.month() + 1 &&
+          schedule.date.date === nowDate.date()
+      )
+      .filter((schedule) => schedule.userDocId !== session?.user?.docId);
     //init scheduleMap
     const scheduleMap = new Map<number, Omit<User, "friends">[]>();
     nowDataSchedule.forEach((schedule) => {
@@ -221,7 +224,7 @@ const SchedulePage = () => {
                 }}>
                 <div></div>
                 <div
-                  className={styles["test"]}
+                  
                   style={{
                     gridTemplateColumns: GroupMemberScheduleMap.get(timeIndex)
                       ? repeatGrid(
@@ -235,12 +238,14 @@ const SchedulePage = () => {
                         )
                       : "1fr",
                   }}>
-                  {GroupMemberScheduleMap.get(timeIndex)?.map((member, index) => (
+                  {GroupMemberScheduleMap.get(timeIndex)?.map(
+                    (member, index) => (
                       <MemberSchedule
                         key={`${timeIndex}-${index}`}
                         {...member}
                       />
-                    ))}
+                    )
+                  )}
                 </div>
               </div>
             ))}

@@ -7,7 +7,7 @@ const SignedIn = () => {
   const now = dayjs();
   useEffect(() => {
     router.push(`/calendar/${now.year()}/${now.month() + 1}`);
-  }, []);
+  }, [now, router]);
   return <div></div>;
 };
 

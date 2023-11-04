@@ -12,12 +12,14 @@ import dayjs from "dayjs";
 import { getSelectedGroup } from "@/redux/featrues/groupSelectSlice";
 import { ScheduleWithUserDetail } from "@/types/types";
 import { useSession } from "next-auth/react";
+import { PAGE, getPageSwitch } from "@/redux/featrues/pageSwitchSlice";
 
 const MonthPage = () => {
   const router = useRouter();
   const { data: session } = useSession();
-  const selectedGroup = useAppSelector(getSelectedGroup);
   const dispatch = useAppDispatch();
+  const selectedGroup = useAppSelector(getSelectedGroup);
+  const pageSwitch = useAppSelector(getPageSwitch);
 
   const UserScheduleSWR = useSWR<Schedule[]>(
     UrlBuilder(
@@ -71,18 +73,18 @@ const MonthPage = () => {
       };
       return newSchedule;
     });
-schedules.sort((a,b)=> {
-  const docIdA =  a.user.docId;
-  const docIdB =  b.user.docId;
-  const docId = session?.user?.docId;
-  if(docIdA === docId && docIdB !== docId) {
-    return -1
-  }
-  if(docIdA === docId && docIdB === docId){
-    return 0;
-  }
-  return 1
-})
+    schedules.sort((a, b) => {
+      const docIdA = a.user.docId;
+      const docIdB = b.user.docId;
+      const docId = session?.user?.docId;
+      if (docIdA === docId && docIdB !== docId) {
+        return -1;
+      }
+      if (docIdA === docId && docIdB === docId) {
+        return 0;
+      }
+      return 1;
+    });
     return schedules;
   }, [selectedGroup, GroupScheduleSWR]);
 
@@ -135,7 +137,7 @@ schedules.sort((a,b)=> {
           return;
         }
       }}>
-      <div>
+      <div className={styles.calendar}>
         <Calendar
           year={router.query.year as string}
           month={router.query.month as string}

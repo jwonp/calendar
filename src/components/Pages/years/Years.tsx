@@ -10,12 +10,28 @@ import {
 } from "@/utils/dateUtils";
 
 import Year from "@/assets/Year/Year";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 const CalendarYearPage = () => {
+  const { data: session } = useSession();
+  const router = useRouter();
   const [years, setYears] = useState<number[]>([]);
   useEffect(() => {
     setYears(get10YearsFromThisYear(dayjs().year()));
   }, []);
+  useEffect(() => {
+    if (!router.isReady) {
+      return;
+    }
+    if (router.query?.year) {
+      router.push(`/years#year${router.query?.year}`);
+      return;
+    }
+    if (!session) {
+      router.push("/");
+    }
+  }, [router.isReady, session]);
   const Years = useMemo(() => {
     return years.map((year, index) => (
       <Year

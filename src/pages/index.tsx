@@ -4,20 +4,29 @@ import { Inter } from "next/font/google";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import dayjs from "dayjs";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
+import axios from "axios";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const router = useRouter();
   const now = dayjs();
-  const { data: session } = useSession();
+  
   useEffect(() => {
-    if (session?.user) {
-      router.push(`/calendar/${now.year()}/${now.month() + 1}`);
-      return;
-    }
-  }, [now, router, router.isReady]);
+    axios
+      .get("/api/login")
+      .then(() => {
+        router.push(`/calendar/${now.year()}/${now.month() + 1}`);
+        return;
+      })
+      .catch(() => {
+        signIn();
+      });
+    // if (session?.user) {
+
+    // }
+  }, []);
   return (
     <>
       <Head>
