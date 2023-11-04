@@ -15,11 +15,7 @@ const ListSelectButton = ({ text, selector }: ListSelectButtonProps) => {
   return (
     <div className={styles.container}>
       <div
-        className={
-          listSelector === selector
-            ? styles.selectedBox
-            : styles.box
-        }
+        className={listSelector === selector ? styles.selectedBox : styles.box}
         onClick={() => {
           dispatch(setListSelector(selector));
         }}>
