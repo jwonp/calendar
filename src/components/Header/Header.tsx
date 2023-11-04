@@ -14,7 +14,7 @@ import {
   setPageToDate,
   setPageToMonth,
 } from "@/redux/featrues/pageSwitchSlice";
-
+import UserIcon from "@public/users-white.png"
 const Header = () => {
   const now = dayjs();
   const router = useRouter();
@@ -103,7 +103,7 @@ const Header = () => {
           )}
           <div className={styles.icon}>
             <Image
-              src={session?.user?.image as string}
+              src={(session?.user?.image as string) ?? UserIcon}
               alt={""}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
