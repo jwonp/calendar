@@ -1,4 +1,5 @@
 .wrapper {
+  width: 100%;
   text-align: center;
 
   -moz-user-select: none;
@@ -7,6 +8,7 @@
   user-select: none;
 }
 .yearMonth {
+  width: 100%;
   font-weight: bold;
   font-size: 24px;
 }
@@ -15,6 +17,7 @@
   font-size: 18px;
 }
 .weekGrid {
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
 
@@ -26,6 +29,7 @@
   }
 }
 .dateConatiner {
+  width: 100%;
 }
 // @use "@/styles/vars.scss" as vars;
 // /* PC , 테블릿 가로 (해상도 769px ~ 1024px)*/
@@ -35,7 +39,7 @@
 //   }
 
 //   /* 모바일 가로, 테블릿 세로 (해상도 481px ~ 768px)*/
-//   @media all and (min-width: calc(vars.$windowWidth-mobile + 1px)) and (max-width: calc(vars.$windowWidth-tablet - 1px)) {
+//  @media all and (min-width: calc(vars.$windowWidth-mobile + 1px)) and (max-width: vars.$windowWidth-tablet) {
 //     /*스타일입력*/
 //   }
 

@@ -113,7 +113,7 @@ a {
 //   }
 
 //   /* 모바일 가로, 테블릿 세로 (해상도 481px ~ 768px)*/
-//   @media all and (min-width: calc(vars.$windowWidth-mobile + 1px)) and (max-width: calc(vars.$windowWidth-tablet - 1px)) {
+//   @media all and (min-width: calc(vars.$windowWidth-mobile + 1px)) and (max-width: vars.$windowWidth-tablet) {
 //     /*스타일입력*/
 //   }
 

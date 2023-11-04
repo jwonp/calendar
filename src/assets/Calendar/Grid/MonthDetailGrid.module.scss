@@ -1,3 +1,4 @@
+@use "@/styles/vars.scss" as vars;
 .conatainer {
   padding: 0 9.375%;
   display: grid;
@@ -12,19 +13,30 @@
   grid-template-columns: 360px 1fr 1fr;
   gap: 0;
 }
-// @use "@/styles/vars.scss" as vars;
-// /* PC , 테블릿 가로 (해상도 769px ~ 1024px)*/
-// @media all and (min-width: calc(vars.$windowWidth-tablet + 1px)) and (max-width: vars.$windowWidth-pc) {
-//     /*스타일입력*/
+/* PC , 테블릿 가로 (해상도 769px ~ 1024px)*/
+@media all and (min-width: calc(vars.$windowWidth-tablet + 1px)) and (max-width: vars.$windowWidth-pc) {
+}
 
-//   }
+/* 모바일 가로, 테블릿 세로 (해상도 481px ~ 768px)*/
+@media all and (min-width: calc(vars.$windowWidth-mobile + 1px)) and (max-width: vars.$windowWidth-tablet) {
+  .conatainer {
+    padding: 0 calc(4vw - 0.625%);
+    display: grid;
+    grid-template-columns: repeat(2, 46vw);
+  }
+  .isFriend {
+    
+    gap: 1.25%;
+    grid-template-columns: 1fr 1fr;
+  }
+}
 
-//   /* 모바일 가로, 테블릿 세로 (해상도 481px ~ 768px)*/
-//   @media all and (min-width: calc(vars.$windowWidth-mobile + 1px)) and (max-width: calc(vars.$windowWidth-tablet - 1px)) {
-//     /*스타일입력*/
-//   }
-
-//   /* 모바일 가로, 테블릿 세로 (해상도 ~ 478px)*/
-//   @media all and (max-width: vars.$windowWidth-mobile) {
-//     /*스타일입력*/
-//   }
+/* 모바일 가로, 테블릿 세로 (해상도 ~ 478px)*/
+@media all and (max-width: vars.$windowWidth-mobile) {
+  .conatainer {
+    grid-template-columns: 1fr;
+  }
+  .isFriend {
+    padding: 0 9.375%;
+  }
+}
