@@ -4,23 +4,19 @@ import FriendPage from "@/components/PartialPages/Friend/Friend";
 import MonthPage from "@/components/PartialPages/Month/Month";
 import SchedulePage from "@/components/PartialPages/Schedule/Schedule";
 import styles from "./index.module.scss";
-import {
-  Dispatch,
-  SetStateAction,
-  createContext,
-  useEffect,
-  useState,
-} from "react";
+import { useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
 import GroupPage from "@/components/PartialPages/Group/Group";
 import { useAppSelector } from "@/redux/hooks";
 import { getDrawerPage } from "@/redux/featrues/drawerSwitchSlice";
+import { PAGE, getPageSwitch } from "@/redux/featrues/pageSwitchSlice";
 
 const MonthDetailPage = () => {
   const router = useRouter();
-  const drawerPage =useAppSelector(getDrawerPage)
+  const pageSwitch = useAppSelector(getPageSwitch);
+  const drawerPage = useAppSelector(getDrawerPage);
   const { data: session } = useSession();
   useEffect(() => {
     if (!router.isReady) {
@@ -37,9 +33,18 @@ const MonthDetailPage = () => {
         <Drawer>
           {drawerPage === "friend" ? <FriendPage /> : <GroupPage />}
         </Drawer>
-
-        <MonthPage />
-        <SchedulePage />
+        <div
+          className={`${styles.page} ${
+            pageSwitch === PAGE.DATE ? styles.hidden : ""
+          }`}>
+          <MonthPage />
+        </div>
+        <div
+          className={`${styles.page} ${
+            pageSwitch === PAGE.MONTH ? styles.hidden : ""
+          }`}>
+          <SchedulePage />
+        </div>
       </MonthDetailGrid>
     </div>
   );
