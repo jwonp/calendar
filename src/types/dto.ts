@@ -18,6 +18,7 @@ export interface RequestReply extends FriendRequestDAO {
 export interface Group {
   host: string;
   title: string;
+  members:string[];
 }
 
 export interface Schedule {
