@@ -12,7 +12,7 @@ interface SearchProps {
 }
 const SearchBar = ({ title }: SearchProps) => {
   const { data: session } = useSession();
-  const [query, setQuery] = useState<string>("");
+
   const [url, setUrl] = useState<string | null>("");
   const timeId = useRef<NodeJS.Timeout>(setTimeout(() => {}));
   const SearchSWR = useSWR<Omit<User, "friends">[]>(url, DefaultFetcher);
@@ -23,17 +23,7 @@ const SearchBar = ({ title }: SearchProps) => {
     ),
     DefaultFetcher
   );
-  useEffect(() => {
-    clearTimeout(timeId.current);
-    timeId.current = setTimeout(
-      () =>
-        setUrl(
-          UrlBuilder(`/api/users/friend/search/${query}`, query.length > 0)
-        ),
-      1000
-    );
-  }, [query]);
-  useEffect(() => {}, []);
+
   return (
     <div className={styles.container}>
       <div className={styles.input_container}>
@@ -48,7 +38,16 @@ const SearchBar = ({ title }: SearchProps) => {
               type="text"
               placeholder="구글 이메일을 입력하세요"
               onChange={(e) => {
-                setQuery(() => e.target.value);
+                const query = e.target.value;
+                clearTimeout(timeId.current);
+                timeId.current = setTimeout(() => {
+                  setUrl(
+                    UrlBuilder(
+                      `/api/users/friend/search/${query}`,
+                      query.length > 0
+                    )
+                  );
+                }, 1000);
               }}
             />
           </div>
