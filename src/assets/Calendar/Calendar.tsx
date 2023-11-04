@@ -1,5 +1,5 @@
 import styles from "./Calendar.module.scss";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   DisplayDate,
   getOneMonth,
@@ -11,7 +11,6 @@ import {
 import DateDetail from "./Date/DateDetail/DateDetail";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
-import { Schedule } from "@/types/dao";
 import { ScheduleWithUserDetail } from "@/types/types";
 interface CalendarProps {
   year: string;
