@@ -14,7 +14,7 @@ import {
   setPageToDate,
   setPageToMonth,
 } from "@/redux/featrues/pageSwitchSlice";
-import UserIcon from "@public/users-white.png"
+import UserIcon from "@public/users-white.png";
 const Header = () => {
   const now = dayjs();
   const router = useRouter();
@@ -70,18 +70,20 @@ const Header = () => {
               친구 목록
             </div>
           )}
-          <div className={styles.indicator}>
-            <div
-              className={styles.text}
-              onClick={() => {
-                dispatch(setPageToMonth());
-              }}>{`${router.query.month as string}월`}</div>
-            <div
-              className={styles.text}
-              onClick={() => {
-                dispatch(setPageToDate());
-              }}>{`${dateAtNow}일`}</div>
-          </div>
+          {Object.keys(router.query).includes("month") && (
+            <div className={styles.indicator}>
+              <div
+                className={styles.text}
+                onClick={() => {
+                  dispatch(setPageToMonth());
+                }}>{`${router.query.month as string}월`}</div>
+              <div
+                className={styles.text}
+                onClick={() => {
+                  dispatch(setPageToDate());
+                }}>{`${dateAtNow}일`}</div>
+            </div>
+          )}
         </div>
         <div className={styles.right}>
           {session?.user ? (
