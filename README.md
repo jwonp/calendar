@@ -1,7 +1,18 @@
-<html>
+
 이 프로젝트는 조직, 단체, 모임에서 각자의 일정을 등록하고, 다음 일정의 시간을 맞출 수 있게 도와주는 서비스를 제공하기 위해 만들었습니다.
 
 배포링크 : https://www.ikiningyou.com
+
+## 주요 라이브러리
+```bash
+redux-toolkit (redux v4.2.1)
+axois v1.5.1
+dayjs v1.11.10
+next-auth v4.23.2
+sass v1.68.0
+sharp 0.32.6
+swr v2.2.4
+```
 
 ## Rest APIs
 
