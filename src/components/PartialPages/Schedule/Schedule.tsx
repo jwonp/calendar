@@ -224,7 +224,7 @@ const SchedulePage = () => {
                 }}>
                 <div></div>
                 <div
-                  
+                className={styles.members}
                   style={{
                     gridTemplateColumns: GroupMemberScheduleMap.get(timeIndex)
                       ? repeatGrid(
