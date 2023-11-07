@@ -98,7 +98,7 @@ const Header = () => {
             <div
               className={styles.text}
               onClick={() => {
-                signIn();
+                signIn("cognito");
               }}>
               로그인
             </div>

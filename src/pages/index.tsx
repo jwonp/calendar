@@ -21,7 +21,7 @@ export default function Home() {
         return;
       })
       .catch(() => {
-        signIn();
+        signIn("cognito");
       });
     // if (session?.user) {
 
