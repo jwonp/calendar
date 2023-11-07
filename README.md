@@ -14,8 +14,8 @@ sharp 0.32.6
 swr v2.2.4
 ```
 
-## Rest APIs
-
+## REST APIs
+모든 400, 500번대 response는 body를 반환하지 않습니다.
 <details>
 <summary>
     GET /users/user/{userId}
@@ -674,15 +674,6 @@ swr v2.2.4
 
 
 ```
-
-### 개발 주요 로드맵
-
-```bash
-제작자 : 박주원
-
-Contact : tkdel222@gmail.com
-```
-
 
 ## Getting Started
 
