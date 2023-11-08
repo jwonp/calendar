@@ -5,8 +5,14 @@ import {
   getSelectedGroup,
   setSelectedGroup,
 } from "@/redux/featrues/groupSelectSlice";
+import Image from "next/image";
+import TrashCanIcon from "@public/trash-can-white.png";
+import axios from "axios";
+import { GroupDeleteRequest } from "@/types/dto";
+import { useSession } from "next-auth/react";
 interface GroupBlockProps extends Group {}
 const GroupBlock = (group: GroupBlockProps) => {
+  const { data: session } = useSession();
   const dispatch = useAppDispatch();
   const selectedGroup = useAppSelector(getSelectedGroup);
   const memmberList = (members: Omit<User, "friends">[]) => {
@@ -34,8 +40,26 @@ const GroupBlock = (group: GroupBlockProps) => {
       onClick={() => {
         dispatch(setSelectedGroup(group));
       }}>
-      <div>{group.title}</div>
-      <div>{memmberList(group.members)}</div>
+      <div>
+        <div>{group.title}</div>
+        <div>{memmberList(group.members)}</div>
+      </div>
+      <div
+        className={styles.button}
+        onClick={() => {
+          const deleteRequest: GroupDeleteRequest = {
+            groupDocId: group.docId,
+            memberDocId: session?.user?.docId as string,
+          };
+          axios.delete("/api/groups/group", { data: deleteRequest });
+        }}>
+        <Image
+          src={TrashCanIcon}
+          alt={""}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        />
+      </div>
     </div>
   );
 };

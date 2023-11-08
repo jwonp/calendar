@@ -7,8 +7,8 @@ import { DefaultFetcher, UrlBuilder } from "@/utils/SwrConfig";
 import { useSession } from "next-auth/react";
 import SearchBar from "@/components/InputBar/SearchBar";
 import { Group, User } from "@/types/dao";
-import { RequestReply } from "@/types/dto";
-import axios from "axios";
+import { FriendDeleteRequest, RequestReply } from "@/types/dto";
+import axios, { AxiosResponse } from "axios";
 import ListSelectButton from "@/assets/Calendar/Drawer/ListSelectButton/ListSelectButton";
 import { LIST, getListSelector } from "@/redux/featrues/ListSelectorSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
@@ -19,8 +19,8 @@ import { PAGE, setDrawerPage } from "@/redux/featrues/drawerSwitchSlice";
 const FriendPage = () => {
   const { data: session } = useSession();
   const listSelector = useAppSelector(getListSelector);
-  const dispatch = useAppDispatch()
-  const FriendSWR = useSWR<Omit<User, "friends" >[]>(
+  const dispatch = useAppDispatch();
+  const FriendSWR = useSWR<Omit<User, "friends">[]>(
     UrlBuilder(
       `/api/users/friend/${session?.user?.id}`,
       session?.user?.id !== undefined
@@ -42,7 +42,10 @@ const FriendPage = () => {
     DefaultFetcher
   );
   const FriendRequestBlocks = useMemo(() => {
-    if (FriendRequestSWR.data === undefined || FriendRequestSWR.data.length === 0) {
+    if (
+      FriendRequestSWR.data === undefined ||
+      FriendRequestSWR.data.length === 0
+    ) {
       return (
         <div className={styles.noContent}>친구 신청 목록이 비어있습니다</div>
       );
@@ -105,7 +108,7 @@ const FriendPage = () => {
     }
   }, [GroupSWR]);
   const FriendList = useMemo(() => {
-    if (FriendSWR.data === undefined|| FriendSWR.data.length === 0) {
+    if (FriendSWR.data === undefined || FriendSWR.data.length === 0) {
       return <div className={styles.noContent}>친구 목록이 비어있습니다</div>;
     }
     try {
@@ -116,6 +119,19 @@ const FriendPage = () => {
           name={friend.name}
           email={friend.email}
           image={friend.picture}
+          onDelete={() => {
+            const deleteRequest: FriendDeleteRequest = {
+              userDocId: session?.user?.docId as string,
+              friendId: friend.id,
+            };
+            axios
+              .delete(`/api/users/friend/request`, { data: deleteRequest })
+              .then((res: AxiosResponse) => {
+                if (res.status === 200) {
+                  FriendSWR.mutate();
+                }
+              });
+          }}
         />
       ));
     } catch {
@@ -153,9 +169,11 @@ const FriendPage = () => {
             />
           </div>
           <div>
-            <div className={styles.icon} onClick={()=>{
-              dispatch(setDrawerPage(PAGE.GROUP))
-            }}>
+            <div
+              className={styles.icon}
+              onClick={() => {
+                dispatch(setDrawerPage(PAGE.GROUP));
+              }}>
               <Image
                 src={AddIcon}
                 alt={""}

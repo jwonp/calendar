@@ -29,3 +29,11 @@ export interface Schedule {
   day: number; // 0(sun) ~ 6(sat)
   schedule: boolean[];
 }
+export interface FriendDeleteRequest {
+  userDocId: string;
+  friendId: string;
+}
+export interface GroupDeleteRequest {
+  groupDocId: string;
+  memberDocId: string;
+}

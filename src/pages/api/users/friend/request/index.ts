@@ -1,4 +1,4 @@
-import { FriendRequest, RequestReply } from "@/types/dto";
+import { FriendDeleteRequest, FriendRequest, RequestReply } from "@/types/dto";
 import { AxiosWithAuthorization, methods } from "@/utils/request";
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -20,6 +20,16 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
       "/users/friend/request",
       methods.PATCH,
       reply
+    );
+    return res.status(200).json(result);
+  }
+  if (req.method === methods.DELETE) {
+    const request: FriendDeleteRequest = req.body as FriendDeleteRequest;
+    const result = AxiosWithAuthorization(
+      req,
+      "/users/friend/request",
+      methods.DELETE,
+      request
     );
     return res.status(200).json(result);
   }
