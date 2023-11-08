@@ -292,6 +292,39 @@ swr v2.2.4
 </details>
 <details>
 <summary>
+    DElETE /users/request
+</summary>
+    <p>친구를 삭제합니다.</p>
+    <tr>
+    <td>
+        <p>params</p>
+        <pre>
+            {
+                NO PARAMS
+            }
+        </pre>
+    </td>
+    <td>
+        <p>body</p>
+        <pre>
+            {
+                "userDocId":"CKalWN2VAQOFHv3oBZjo",
+                "friendId":"userId1"
+            }
+        </pre>
+    </td>
+    <td>
+        <p>return</p>
+        <pre>
+            {
+                NO RETURN
+            }
+        </pre>
+    </td>
+    </tr>
+</details>
+<details>
+<summary>
     GET /groups/group/{docId}
 </summary>
     <p>해당 Document ID에 맞는 그룹에 소속된 모든 유저들의 정보를 불러옵니다.</p>
@@ -369,6 +402,39 @@ swr v2.2.4
         <pre>
             {
                 "docId": "xXBVDQaaJS4jRfWShnUt"
+            }
+        </pre>
+    </td>
+    </tr>
+</details>
+<details>
+<summary>
+    DELETE /groups/group
+</summary>
+    <p>그룹을 삭제합니다.</p>
+    <tr>
+    <td>
+        <p>params</p>
+        <pre>
+            {
+                NO PARAMS
+            }
+        </pre>
+    </td>
+    <td>
+        <p>body</p>
+        <pre>
+            {
+                "groupDocId": "MNhtBTzi353c7LnrbX15",
+                "memberDocId": "RVNbHjjuJxerR920xzLg"
+            }
+        </pre>
+    </td>
+    <td>
+        <p>return</p>
+        <pre>
+            {
+                NO RETURN
             }
         </pre>
     </td>
