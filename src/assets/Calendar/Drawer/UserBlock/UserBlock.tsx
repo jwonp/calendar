@@ -45,15 +45,18 @@ const UserBlock = ({
         <div>{email}</div>
       </div>
       {onDelete ? (
-        <div
-          className={styles.button}
-          onClick={onDelete}>
-          <Image
-            src={TrashCanIcon}
-            alt={""}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
+        <div className={styles.buttons}>
+          <div className={styles.dumpButton}></div>
+          <div
+            className={styles.button}
+            onClick={onDelete}>
+            <Image
+              src={TrashCanIcon}
+              alt={""}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          </div>
         </div>
       ) : (
         <></>
