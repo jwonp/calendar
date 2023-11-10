@@ -75,24 +75,8 @@ const SchedulePage = () => {
     selectedGroup.members.forEach((member) => {
       memberMap.set(member.docId, member);
     });
-    console.log({
-      title: "memberMap",
-      members: memberMap.entries(), //Array.from(memberMap.values()),
-    });
-    console.log({
-      title: "rowScheuldes",
-      rowSchedules: GroupScheduleSWR.data
-        .filter(
-          (schedule) =>
-            schedule.date.year === nowDate.year() &&
-            schedule.date.month === nowDate.month() + 1 &&
-            schedule.date.date === nowDate.date()
-        )
-
-        .map((schedule) => {
-          return { userDocId: schedule.userDocId, schedule: schedule.schedule };
-        }),
-    });
+    
+   
     const nowDataSchedule = GroupScheduleSWR.data
       .filter(
         (schedule) =>
@@ -118,10 +102,7 @@ const SchedulePage = () => {
         }
       });
     });
-    console.log({
-      title: "scheduleMap",
-      schedules: Array.from(scheduleMap.values()),
-    });
+
 
     return scheduleMap;
   }, [selectedGroup, GroupScheduleSWR]);
