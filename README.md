@@ -736,7 +736,7 @@ swr v2.2.4
 
 
 ### 페이지 소개
-```bash
+
 그룹 생성
 <div>
     <image src="https://s3.ap-northeast-2.amazonaws.com/ikiningyou.portfolio.s3.bucket/Images/calendar/%E1%84%80%E1%85%B3%E1%84%85%E1%85%AE%E1%86%B8%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC.png" height="540px"/>
@@ -764,7 +764,7 @@ swr v2.2.4
 <div>
     <image src="https://s3.ap-northeast-2.amazonaws.com/ikiningyou.portfolio.s3.bucket/Images/calendar/%E1%84%8B%E1%85%A7%E1%86%AB%E1%84%83%E1%85%A9%E1%84%87%E1%85%A7%E1%86%AF.png" height="540px"/>
 </div>
-```
+
 
 ## Getting Started
 
