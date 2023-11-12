@@ -4,15 +4,15 @@
 배포링크 : https://www.ikiningyou.com
 
 ## 주요 라이브러리
-```bash
-redux-toolkit (redux v4.2.1)
-axois v1.5.1
-dayjs v1.11.10
-next-auth v4.23.2
-sass v1.68.0
-sharp 0.32.6
-swr v2.2.4
-```
+
+- redux-toolkit (redux v4.2.1)
+- axois v1.5.1
+- dayjs v1.11.10
+- next-auth v4.23.2
+- sass v1.68.0
+- sharp 0.32.6
+- swr v2.2.4
+
 
 ## REST APIs
 모든 400, 500번대 response는 body를 반환하지 않습니다.
@@ -737,30 +737,35 @@ swr v2.2.4
 
 ### 페이지 소개
 
-그룹 생성
+#### 그룹 생성
 <div>
     <image src="https://s3.ap-northeast-2.amazonaws.com/ikiningyou.portfolio.s3.bucket/Images/calendar/%E1%84%80%E1%85%B3%E1%84%85%E1%85%AE%E1%86%B8%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC.png" height="540px"/>
 </div>
-그룹 선택
+
+#### 그룹 선택
 <div>
     <image src="https://s3.ap-northeast-2.amazonaws.com/ikiningyou.portfolio.s3.bucket/Images/calendar/%E1%84%80%E1%85%B3%E1%84%85%E1%85%AE%E1%86%B8%E1%84%89%E1%85%A5%E1%86%AB%E1%84%90%E1%85%A2%E1%86%A8.png" height="540px"/>
 </div>
-친구 목록
+
+#### 친구 목록
 <div>
     <image src="https://s3.ap-northeast-2.amazonaws.com/ikiningyou.portfolio.s3.bucket/Images/calendar/%E1%84%8E%E1%85%B5%E1%86%AB%E1%84%80%E1%85%AE%E1%84%86%E1%85%A9%E1%86%A8%E1%84%85%E1%85%A9%E1%86%A8.png" height="540px"/>
 </div>
-친구 추가
+
+#### 친구 추가
 <div>
     <image src="https://s3.ap-northeast-2.amazonaws.com/ikiningyou.portfolio.s3.bucket/Images/calendar/%E1%84%8E%E1%85%B5%E1%86%AB%E1%84%80%E1%85%AE%E1%84%8E%E1%85%AE%E1%84%80%E1%85%A1.png" height="540px"/>
 </div>
 <div>
     <image src="https://s3.ap-northeast-2.amazonaws.com/ikiningyou.portfolio.s3.bucket/Images/calendar/%E1%84%8E%E1%85%B5%E1%86%AB%E1%84%80%E1%85%AE%E1%84%8E%E1%85%AE%E1%84%80%E1%85%A12.png" height="540px"/>
 </div>
-일정 확인
+
+#### 일정 확인
 <div>
     <image src="https://s3.ap-northeast-2.amazonaws.com/ikiningyou.portfolio.s3.bucket/Images/calendar/%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%92%E1%85%AA%E1%86%A8%E1%84%8B%E1%85%B5%E1%86%AB.png" height="540px"/>
 </div>
-연도별 달력
+
+#### 연도별 달력
 <div>
     <image src="https://s3.ap-northeast-2.amazonaws.com/ikiningyou.portfolio.s3.bucket/Images/calendar/%E1%84%8B%E1%85%A7%E1%86%AB%E1%84%83%E1%85%A9%E1%84%87%E1%85%A7%E1%86%AF.png" height="540px"/>
 </div>
