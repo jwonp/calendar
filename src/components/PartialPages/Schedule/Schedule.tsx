@@ -14,6 +14,7 @@ import { getSelectedGroup } from "@/redux/featrues/groupSelectSlice";
 import { repeatGrid } from "@/utils/stringUtils";
 import MemberSchedule from "@/assets/Calendar/Date/Schedule/MemberSchedule/MemberSchedule";
 import { PAGE, getPageSwitch } from "@/redux/featrues/pageSwitchSlice";
+import TimeSlot from "./TimeSlot/TimeSlot";
 
 const hours = [
   0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
@@ -107,6 +108,23 @@ const SchedulePage = () => {
     return scheduleMap;
   }, [selectedGroup, GroupScheduleSWR]);
 
+  const handleTimeSelection = (timeIndex:number) => {
+    const selectedTimes = [...selected];
+    selectFlag.current = !selected[timeIndex];
+    selectedTimes[timeIndex] = selectFlag.current;
+    setSelected(() => [...selectedTimes]);
+  };
+
+  const handleMouseEnter = (timeIndex:number) => {
+    const selectedItems = [...selected];
+    if (!isMouseDown) {
+      return;
+    }
+    selectedItems[timeIndex] = selectFlag.current;
+    setSelected(() => [...selectedItems]);
+  };
+
+
   useEffect(() => {
     const isNotReadyToLoading =
       !ScheduleSWR.data || loadingFlag.current === false;
@@ -182,53 +200,62 @@ const SchedulePage = () => {
               axios.post("/api/schedules/user", schedule);
             }}>
             {times.map((time, timeIndex) => (
-              <div
-                id={timeIndex.toString()}
-                key={timeIndex}
-                className={`${styles.line} ${
-                  timeIndex === times.length - 1 && styles.borderBottom
-                } ${selected[timeIndex] && styles.selected}`}
-                onMouseDown={() => {
-                  const selectedTimes = [...selected];
-                  selectFlag.current = !selected[timeIndex];
-                  selectedTimes[timeIndex] = selectFlag.current;
-                  setSelected(() => [...selectedTimes]);
-                }}
-                onClick={() => {}}
-                onMouseEnter={() => {
-                  const selectedItems = [...selected];
-                  if (!isMouseDown) {
-                    return;
-                  }
-                  selectedItems[timeIndex] = selectFlag.current;
-                  setSelected(() => [...selectedItems]);
-                }}>
-                <div></div>
-                <div
-                className={styles.members}
-                  style={{
-                    gridTemplateColumns: GroupMemberScheduleMap.get(timeIndex)
-                      ? repeatGrid(
-                          "1fr",
-                          (
-                            GroupMemberScheduleMap.get(timeIndex) as Omit<
-                              User,
-                              "friends"
-                            >[]
-                          ).length
-                        )
-                      : "1fr",
-                  }}>
-                  {GroupMemberScheduleMap.get(timeIndex)?.map(
-                    (member, index) => (
-                      <MemberSchedule
-                        key={`${timeIndex}-${index}`}
-                        {...member}
-                      />
-                    )
-                  )}
-                </div>
-              </div>
+                     <TimeSlot
+                     key={timeIndex}
+                     time={time}
+                     timeIndex={timeIndex}
+                     selected={selected[timeIndex]}
+                     handleTimeSelection={handleTimeSelection}
+                     handleMouseEnter={handleMouseEnter}
+                     groupMemberSchedule={GroupMemberScheduleMap.get(timeIndex)}
+                   />
+              // <div
+              //   id={timeIndex.toString()}
+              //   key={timeIndex}
+              //   className={`${styles.line} ${
+              //     timeIndex === times.length - 1 && styles.borderBottom
+              //   } ${selected[timeIndex] && styles.selected}`}
+              //   onMouseDown={() => {
+              //     const selectedTimes = [...selected];
+              //     selectFlag.current = !selected[timeIndex];
+              //     selectedTimes[timeIndex] = selectFlag.current;
+              //     setSelected(() => [...selectedTimes]);
+              //   }}
+              //   onClick={() => {}}
+              //   onMouseEnter={() => {
+              //     const selectedItems = [...selected];
+              //     if (!isMouseDown) {
+              //       return;
+              //     }
+              //     selectedItems[timeIndex] = selectFlag.current;
+              //     setSelected(() => [...selectedItems]);
+              //   }}>
+              //   <div></div>
+              //   <div
+              //   className={styles.members}
+              //     style={{
+              //       gridTemplateColumns: GroupMemberScheduleMap.get(timeIndex)
+              //         ? repeatGrid(
+              //             "1fr",
+              //             (
+              //               GroupMemberScheduleMap.get(timeIndex) as Omit<
+              //                 User,
+              //                 "friends"
+              //               >[]
+              //             ).length
+              //           )
+              //         : "1fr",
+              //     }}>
+              //     {GroupMemberScheduleMap.get(timeIndex)?.map(
+              //       (member, index) => (
+              //         <MemberSchedule
+              //           key={`${timeIndex}-${index}`}
+              //           {...member}
+              //         />
+              //       )
+              //     )}
+              //   </div>
+              // </div>
             ))}
           </div>
         </div>

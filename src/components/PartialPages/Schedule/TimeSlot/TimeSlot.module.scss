@@ -1,0 +1,16 @@
+@use "@/styles/vars.scss" as vars;
+@use "@/styles/ThemeColor" as Color;
+$height: 24px;
+.timeSlot {
+  height: $height;
+  // width: 768px * $timeTableRate;
+  border-top: 1px solid Color.$ThemeColor-3;
+  display: grid;
+  grid-template-columns: 2fr 5fr;
+  & .members {
+    display: grid;
+  }
+}
+.selected {
+  background-color: Color.$ThemeColor-3;
+}
