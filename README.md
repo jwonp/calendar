@@ -2,6 +2,81 @@
 이 프로젝트는 조직, 단체, 모임에서 각자의 일정을 등록하고, 다음 일정의 시간을 맞출 수 있게 도와주는 서비스를 제공하기 위해 만들었습니다.
 
 배포링크 : https://www.ikiningyou.com
+## 기술스택
+### 프론트엔드
+<table>
+	<tr>
+		<td>
+			<image src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566879300/noticon/fvty9lnsbjol5lq9u3by.svg" width="80px" height="80px"/>		
+		</td>
+	  	<td>
+			<image src="https://github.com/nextauthjs/next-auth/blob/main/docs/static/img/logo/logo.png?raw=true" width="80px" height="80px"/>			
+		</td>
+	  	<td>
+			<image src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566913457/noticon/eh4d0dnic4n1neth3fui.png" width="80px" height="80px"/>
+		</td>
+	  	<td>
+			<image src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1691760811/noticon/mj67k1iwrb1vjrrntob2.png" width="80px" height="80px"/>
+		</td>	
+	  	<td>
+			<image src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1567749614/noticon/zgdaxpaif5ojeduonygb.png" width="80px" height="80px"/>
+		</td>	
+	</tr>
+	<tr>
+		<td>Next.js</td>
+		<td>NextAuth</td>
+	  	<td>Typescript</td>
+	  	<td>SWR</td>
+	  	<td>Redux</td>	
+	</tr>
+</table>
+
+### 백엔드
+<table>
+	<tr>
+		<td>
+			<image src="https://s3.ap-northeast-2.amazonaws.com/ikiningyou.portfolio.s3.bucket/Images/calendar/%E1%84%8B%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%8F%E1%85%A9%E1%86%AB/lambda.png" width="80px" height="80px"/>		
+		</td>
+	  	<td>
+			<image src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1694089639/noticon/ox4ngdartf1uzusjhcqx.png" width="80px" height="80px"/>			
+		</td>
+	  	<td>
+			<image src="https://s3.ap-northeast-2.amazonaws.com/ikiningyou.portfolio.s3.bucket/Images/calendar/%E1%84%8B%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%8F%E1%85%A9%E1%86%AB/cognito.png" width="80px" height="80px"/>
+		</td>
+	  	<td>
+			<image src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566913958/noticon/uoqjdixts4lwsgtsa1pd.png" width="80px" height="80px"/>
+		</td>
+	</tr>
+	<tr>
+		<td>AWS Lambda</td>
+	  	<td>AWS API Gateway</td>
+	  	<td>AWS Cognito</td>	
+	  	<td>Firebase</td>	
+	</tr>
+</table>
+
+### 배포
+<table>
+	<tr>
+		<td>
+			<image src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566798146/noticon/lku5cppzh8r7awwsmmko.png" width="80px" height="80px"/>		
+		</td>
+		<td>
+			<image src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566798146/noticon/lku5cppzh8r7awwsmmko.png" width="80px" height="80px"/>		
+		</td>
+		<td>
+			<image src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1568175385/noticon/iodu1jssf0kwe4oie2dt.png" width="80px" height="80px"/>		
+		</td>
+	</tr>
+	<tr>
+		<td>AWS EC2</td>
+		<td>Nginx</td>
+		<td>Docker</td>
+	</tr>
+</table>
+
+## 아키텍쳐
+![[https://s3.ap-northeast-2.amazonaws.com/ikiningyou.portfolio.s3.bucket/Images/calendar/Calender+%E1%84%8B%E1%85%A1%E1%84%8F%E1%85%B5%E1%84%90%E1%85%A6%E1%86%A8%E1%84%8E%E1%85%A7.jpg]
 
 ## 주요 라이브러리
 
