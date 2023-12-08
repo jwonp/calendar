@@ -59,7 +59,7 @@
 <table>
 	<tr>
 		<td>
-			<image src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566798146/noticon/lku5cppzh8r7awwsmmko.png" width="80px" height="80px"/>		
+			<image src="https://s3.ap-northeast-2.amazonaws.com/ikiningyou.portfolio.s3.bucket/Images/calendar/%E1%84%8B%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%8F%E1%85%A9%E1%86%AB/ec2.png" width="80px" height="80px"/>		
 		</td>
 		<td>
 			<image src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566798146/noticon/lku5cppzh8r7awwsmmko.png" width="80px" height="80px"/>		
