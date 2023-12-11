@@ -75,12 +75,6 @@
 	</tr>
 </table>
 
-## 아키텍쳐
-<div>
-	<image src="https://s3.ap-northeast-2.amazonaws.com/ikiningyou.portfolio.s3.bucket/Images/calendar/Calender+%E1%84%8B%E1%85%A1%E1%84%8F%E1%85%B5%E1%84%90%E1%85%A6%E1%86%A8%E1%84%8E%E1%85%A7.jpg"/>	
-</div>
-
-
 ## 주요 라이브러리
 
 - redux-toolkit (redux v4.2.1)
@@ -90,6 +84,45 @@
 - sass v1.68.0
 - sharp 0.32.6
 - swr v2.2.4
+
+## 프로젝트
+
+- **사이드 프로젝트 / 프론트엔드 + 백엔드 담당 / Typescript**
+    
+    - 23.10.01 ~ 23.11.07 (추후 지속적으로 업데이트 예정)
+    
+    - 조직, 단체, 모임에서 각자의 일정을 등록하고, 다음 일정의 시간을 맞출 수 있게 도와주는 서비스
+    
+    - 프론트 : Next.js + Next-auth
+    
+    - 백엔드 : AWS Lambda + API gateway + cognito + Firebase
+    <div>
+	<image src="https://s3.ap-northeast-2.amazonaws.com/ikiningyou.portfolio.s3.bucket/Images/calendar/Calender+%E1%84%8B%E1%85%A1%E1%84%8F%E1%85%B5%E1%84%90%E1%85%A6%E1%86%A8%E1%84%8E%E1%85%A7.jpg"/>	
+</div>
+
+
+<div style="page-break-after: always;"></div>
+
+## 프로젝트 내 문제 및 해결
+
+1. /years 페이지에서 랜더링 성능 문제
+	-  문제
+		- 처음 의도는 IOS의 캘린더처럼 년도별 달력을 자연스럽게 스크롤하고자 100년치 이상의 달력을 한 번에 랜더링했으나, 초기 랜더링 시간이 오래 결렸습니다.
+	- 해결
+		- 초기에 10년치의 달력만 랜더링하고 스크롤을 감지해서 무한 스크롤 방식으로 바꿔서 초기 랜더링 시간을 약 32배 줄일 수 있었습니다.
+    
+![years 수정전-캡쳐본.png](https://s3.ap-northeast-2.amazonaws.com/ikiningyou.portfolio.s3.bucket/Images/calendar/years+%E1%84%89%E1%85%AE%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A5%E1%86%AB-%E1%84%8F%E1%85%A2%E1%86%B8%E1%84%8E%E1%85%A7%E1%84%87%E1%85%A9%E1%86%AB.png)
+![years 수정후-캡쳐본.png](https://s3.ap-northeast-2.amazonaws.com/ikiningyou.portfolio.s3.bucket/Images/calendar/years+%E1%84%89%E1%85%AE%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%92%E1%85%AE-%E1%84%8F%E1%85%A2%E1%86%B8%E1%84%8E%E1%85%A7%E1%84%87%E1%85%A9%E1%86%AB.png)
+ <div style="page-break-after: always;"></div>
+
+2. 검색 데이터 요청 최적화
+	- 문제
+		- 친구 추가를 위해 `<input>` 태그로 입력을 받아서 검색을 할 때, `onChange` 에 검색 결과를 요청하는 로직을 작성하면 모든 키를 누를 때마다 요청이 가서 서버에 부담을 늘리는 성능 상의 문제가 생겼습니다.
+    
+    - 해결
+	    - 입력이 끝났을 때, 딱 한 번만 요청을 하도록 바꾸면 되는데, `setTimeout()`의 기능을 최대한 사용해서 해결하기로 했습니다.
+	    - `setTimeout()` 은 `timeoutID` 를 반환하고 `clearTimeout(timeoutID)` 으로 아직 타이머가 끝나지 않은 `setTimeout()` 를 취소 할 수 있다는 점을 이용해서 `useRef` 로 `timeoutID` 를 가지고 있다가 `onChange` 가 1초 이상 다시 실행되지 않을 때, 검색 결과를 요청해서 요청 수를 대폭 줄일 수 있었습니다.
+	    
 
 
 ## REST APIs
