@@ -85,18 +85,9 @@
 - sharp 0.32.6
 - swr v2.2.4
 
-## 프로젝트
+## 아키텍처
 
-- **사이드 프로젝트 / 프론트엔드 + 백엔드 담당 / Typescript**
-    
-    - 23.10.01 ~ 23.11.07 (추후 지속적으로 업데이트 예정)
-    
-    - 조직, 단체, 모임에서 각자의 일정을 등록하고, 다음 일정의 시간을 맞출 수 있게 도와주는 서비스
-    
-    - 프론트 : Next.js + Next-auth
-    
-    - 백엔드 : AWS Lambda + API gateway + cognito + Firebase
-    <div>
+<div>
 	<image src="https://s3.ap-northeast-2.amazonaws.com/ikiningyou.portfolio.s3.bucket/Images/calendar/Calender+%E1%84%8B%E1%85%A1%E1%84%8F%E1%85%B5%E1%84%90%E1%85%A6%E1%86%A8%E1%84%8E%E1%85%A7.jpg"/>	
 </div>
 
