@@ -6,9 +6,10 @@ $height: 24px;
   // width: 768px * $timeTableRate;
   border-top: 1px solid Color.$ThemeColor-3;
   display: grid;
-  grid-template-columns: 2fr 5fr;
+  // grid-template-columns: 2fr 5fr;
   & .members {
-    display: grid;
+    display: flex;
+    overflow: hidden;
   }
 }
 .selected {

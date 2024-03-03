@@ -1,13 +1,13 @@
 @use "../../../../../styles/ThemeColor.scss" as Color;
 .container {
-  width: 100%;
+  width: 8em;
   height: 100%;
 
   background-color: Color.$ThemeColor-1;
-  text-indent: 2%;
+  text-indent:0.7em;
+  border-radius:8px;
   overflow-x: hidden;
   white-space: nowrap;
-
   text-overflow: ellipsis;
 }
 // @use "@/styles/vars.scss" as vars;
